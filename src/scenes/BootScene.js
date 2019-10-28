@@ -1,87 +1,182 @@
 /*global Phaser*/
 import * as ChangeScene from './ChangeScene.js';
-export default class BootScene extends Phaser.Scene {
-  constructor() {
+export default class BootScene extends Phaser.Scene
+{
+  constructor()
+  {
     super("Boot");
   }
 
-  preload(){
-    // Preload assets
-    this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
-    this.load.audio('theme','./assets/sounds/InGame.wav')
+  preload()
+  {
+    //Preload assets
+    this.load.audio('theme', './assets/sounds/InGame.wav');
+    this.load.audio('select', './assets/sounds/select.wav');
+
+    //Load spritesheets
+    this.load.spritesheet('cookBoot', "./assets/fullSized/Cook Animation.png",
+    {
+      frameHeight: 185,
+      frameWidth: 181
+    });
+    this.load.spritesheet('potatoBoot', "./assets/fullSized/potatoFullSized.png",
+    {
+      frameHeight: 350,
+      frameWidth: 255
+    });
+
+    //Load buttons
+    this.load.spritesheet("playbuttons", "./assets/fullSized/playButtons.png",
+    {
+      frameHeight: 165,
+      frameWidth: 388
+    });
+    this.load.spritesheet("tutorialbuttons", "./assets/fullSized/TutButtons.png",
+    {
+      frameHeight: 158,
+      frameWidth: 387
+    });
+    this.load.spritesheet("optionsbuttons", "./assets/fullSized/OptionsButtons.png",
+    {
+      frameHeight: 158,
+      frameWidth: 383
+    });
+
+    //Load title
+    this.load.image("title", "./assets/fullSized/Title Text.png")
+
     //Declare variables for center of the scene
     this.centerX = this.cameras.main.width/2;
-    this.centerY=this.cameras.main.height/2;
+    this.centerY = this.cameras.main.height/2;
   }
 
-  create() {
-    //Add change scene event listeners
-    ChangeScene.addSceneEventListeners(this)
-    //add music
-    this.music=this.sound.add('theme');
-    this.music.play({
+  create()
+  {
+    //Add music
+    this.music = this.sound.add('theme');
+    this.music.play
+    ({
       volume:.3,
       loop:true
     });
 
-    //Create the scenes
-    WebFont.load({
-      google:{
-        families: ['Permanent Marker', 'Modak', 'Anton']
-      }
+    //Add SFX
+    this.select = this.sound.add('select');
+
+    //Background
+    this.cameras.main.setBackgroundColor(0xffe6cc);
+
+    //Add title
+    this.add.sprite(400, 150, 'title').setScale(0.5);
+
+    //Add sprites
+    this.cook = this.add.sprite(150, 350, 'cookBoot').setScale(0.75);
+    this.potato = this.add.sprite(350, 360, 'potatoBoot').setScale(0.3);
+
+    //Variable to check cook's direction
+    this.cook.direction = "right";
+
+    //Add animations
+    this.anims.create
+    ({
+        key: "cook_running",
+        frames: this.anims.generateFrameNumbers('cookBoot', { start: 2, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    this.anims.create
+    ({
+        key: "potato_rolling",
+        frames: this.anims.generateFrameNumbers('potatoBoot', { start: 0, end: 5 }),
+        frameRate: 10,
+        repeat: -1
     });
 
-    this.cameras.main.setBackgroundColor(0xb79268)
+    //Add play button to scene
+    var b1 = this.add.sprite(175, 500, 'playbuttons', 0).setScale(0.5).setInteractive();
+    b1.on("pointerover", function()
+    {
+      this.setFrame(1);
+    });
+    b1.on("pointerout", function()
+    {
+      this.setFrame(0);
+    });
+    b1.on("pointerup", function()
+    {
+      this.music.stop();
+      this.scene.start('level1');
+      this.select.play
+      ({
+        volume:.3,
+        loop: false
+      });
+    }, this
+  );
 
-    var text = 'Fried or Flight'
-    var text2 = 'Use the arrows to move, push crates, and avoid the cooks'
-    var text3 = 'Press Space bar to start'
+    //Add tutorial button to scene
+    var b2 = this.add.sprite(400, 500, 'tutorialbuttons', 2).setScale(0.5).setInteractive();
+    b2.on("pointerover", function()
+    {
+      this.setFrame(1);
+    });
+    b2.on("pointerout", function()
+    {
+      this.setFrame(0);
+    });
+    b2.on("pointerup", function()
+    {
+      this.music.stop();
+      this.scene.start('tutorial');
+      this.select.play
+      ({
+        volume:.3,
+        loop: false
+      });
+    }, this
+  );
 
-    this.spellOutText(170,75,550,text,60,10, '#fff','Permanent Marker');
-    this.spellOutText(175,200,450,text2,20,30, '#fff','Anton');
-    this.spellOutText(250,300,550,text3,30,50, '#fff','Anton');
+    //Add options button to scene
+    var b3 = this.add.sprite(650, 500, 'optionsbuttons', 4).setScale(0.5).setInteractive();
+    b3.on("pointerover", function()
+    {
+      this.setFrame(1);
+    });
+    b3.on("pointerout", function()
+    {
+      this.setFrame(0);
+    });
+    b3.on("pointerup", function()
+    {
+      this.music.stop();
+      this.scene.start('Options');
+    }, this
+  );
   }
 
-  spellOutText(x, y, width, text, fontSize, speed, fill, font){
-    var sentence = this.add.text(x,y, "", {
-      fontSize: fontSize,
-      fill: fill,
-      fontFamily: font
-    });
-    var currentLine = this.add.text(10,10,"", {
-      fontSize:fontSize,
-      fontFamily: font
-    });
-    currentLine.alpha=0;
-    var index = 0;
-    var timer;
-
-    //Start the text loop
-    startLoop(this);
-
-    function startLoop(that){
-      timer = that.time.addEvent({
-        delay: speed,
-        callback: addChar,
-        callbackScope: this,
-        loop: true
-      });
-
-      function addChar(){
-        sentence.text += text[index];
-        currentLine.text += text[index];
-
-        if (currentLine.width > width && text[index] === " "){
-          sentence.text +=  "\n";
-          currentLine.text = "";
-        }
-
-        if (index >= text.length - 1){
-          timer.remove();
-          console.log("stop");
-        }
-        index++;
-      }
+  update()
+  {
+    //Check for cook position and play animations
+    if (this.cook.x <= 500 && this.cook.direction == "right")
+    {
+      this.cook.flipX = false;
+      this.cook.anims.play("cook_running", true);
+      this.cook.x += 3.5;
+      this.potato.anims.play("potato_rolling", true);
+      this.potato.x += 3.5;
+      this.potato.flipX = false;
+    }
+    else if (this.cook.x >= 150)
+    {
+      this.cook.direction = "left"
+      this.cook.flipX = true;
+      this.cook.x -= 3.5;
+      this.potato.x -= 3.5;
+      this.potato.flipX = true;
+    }
+    else
+    {
+      this.cook.direction = "right";
     }
   }
 }
