@@ -42,8 +42,8 @@ export default class BootScene extends Phaser.Scene
       frameWidth: 383
     });
 
-    //Load title
-    this.load.image("title", "./assets/fullSized/Title Text.png")
+    //Load background
+    this.load.image("background", "./assets/fullSized/Store Front.png")
 
     //Declare variables for center of the scene
     this.centerX = this.cameras.main.width/2;
@@ -66,12 +66,12 @@ export default class BootScene extends Phaser.Scene
     //Background
     this.cameras.main.setBackgroundColor(0xffe6cc);
 
-    //Add title
-    this.add.sprite(400, 150, 'title').setScale(0.5);
+    //Add background
+    this.add.sprite(400, 280, 'background').setScale(0.6);
 
     //Add sprites
-    this.cook = this.add.sprite(150, 350, 'cookBoot').setScale(0.75);
-    this.potato = this.add.sprite(350, 360, 'potatoBoot').setScale(0.3);
+    this.cook = this.add.sprite(150, 480, 'cookBoot').setScale(0.75);
+    this.potato = this.add.sprite(350, 490, 'potatoBoot').setScale(0.3);
 
     //Variable to check cook's direction
     this.cook.direction = "right";
@@ -93,7 +93,7 @@ export default class BootScene extends Phaser.Scene
     });
 
     //Add play button to scene
-    var b1 = this.add.sprite(175, 500, 'playbuttons', 0).setScale(0.5).setInteractive();
+    var b1 = this.add.sprite(195, 315, 'playbuttons', 0).setScale(0.4).setInteractive();
     b1.on("pointerover", function()
     {
       this.setFrame(1);
@@ -115,7 +115,7 @@ export default class BootScene extends Phaser.Scene
   );
 
     //Add tutorial button to scene
-    var b2 = this.add.sprite(400, 500, 'tutorialbuttons', 2).setScale(0.5).setInteractive();
+    var b2 = this.add.sprite(575, 315, 'tutorialbuttons', 2).setScale(0.4).setInteractive();
     b2.on("pointerover", function()
     {
       this.setFrame(1);
@@ -137,7 +137,7 @@ export default class BootScene extends Phaser.Scene
   );
 
     //Add options button to scene
-    var b3 = this.add.sprite(650, 500, 'optionsbuttons', 4).setScale(0.5).setInteractive();
+    var b3 = this.add.sprite(625, 110, 'optionsbuttons', 4).setScale(0.3).setInteractive();
     b3.on("pointerover", function()
     {
       this.setFrame(1);
