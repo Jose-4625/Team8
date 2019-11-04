@@ -339,7 +339,7 @@ export default class DefaultScene extends Phaser.Scene {
     this.doorCheck(128);
     //(this.player.body.velocity.x, this.player.body.velocity.y)
     if (Math.sin(this.time.now) > 0.3){
-      this.enemyView(256);
+      this.enemyView(200);
     }
     this.playerSpeedCheck();
     this.enemyMaxSpeedCheck();
@@ -456,19 +456,20 @@ export default class DefaultScene extends Phaser.Scene {
       var enemies = this.enemyGroup;
       ////(enemies[0].body.velocity);
       for ( var i = 0; i < enemies.length; i++){
-        if (Math.abs(enemies[i].body.velocity.y) < 0.001){
+        if (Math.abs(enemies[i].body.velocity.y) < 0.03){
           enemies[i].body.setVelocityY = 0;
         }
-        if (Math.abs(enemies[i].body.velocity.x) < 0.001){
+        if (Math.abs(enemies[i].body.velocity.x) < 0.003){
           enemies[i].body.setVelocityX = 0;
         }
-        if (enemies[i].body.velocity.x == 0 && enemies[i].body.velocity.y == 0){
+        if (enemies[i].body.velocity.x == 0 || enemies[i].body.velocity.y == 0){
           enemies[i].setVelocityX(Phaser.Math.Between(-1.5, 1.5));
           enemies[i].setVelocityY(Phaser.Math.Between(-1.5, 1.5));
           this.setEnemyFrame(enemies[i]);
         }else{
           enemies[i].setVelocityX(enemies[i].body.velocity.x);
           enemies[i].setVelocityY(enemies[i].body.velocity.y);
+          this.setEnemyFrame(enemies[i]);
 
         }
       }
@@ -537,7 +538,7 @@ export default class DefaultScene extends Phaser.Scene {
     }
 
     endScene(player, winPoint){
-      console.log("player",player)
+      //console.log("player",player)
       if (player.label == "Potato"){
         this.gameWin = true
       }
@@ -562,8 +563,11 @@ export default class DefaultScene extends Phaser.Scene {
       var enemies = this.enemyGroup;
       ////(enemies[0].body.velocity);
       for ( var i = 0; i < enemies.length; i++){
+        enemies[i].setAngularVelocity(0);
+        console.log(enemies[i].body.velocity.x,enemies[i].body.velocity.y)
         if (enemies[i].body.velocity.x > 1.5){
           enemies[i].setVelocityX(1);
+
         }else if (enemies[i].body.velocity.x < -1.5){
           enemies[i].setVelocityX(-1);
         }
@@ -571,6 +575,9 @@ export default class DefaultScene extends Phaser.Scene {
           enemies[i].setVelocityY(1);
         }else if (enemies[i].body.velocity.y < -1.5){
          enemies[i].setVelocityY(-1);
+        }
+        if (enemies[i].body.velocity.y == NaN && enemies[i].body.velocity.x == NaN){
+          enemies[i].prevPosition();
         }
       }
 
@@ -602,10 +609,10 @@ export default class DefaultScene extends Phaser.Scene {
           timedEvent.remove();
         }
       }
-      console.log('bodyA',s1.label)
+      //console.log('bodyA',s1.label)
       var x = s2.position.x + this.displace()
       var y = s2.position.y + this.displace()
-      console.log(x,  y)
+      //console.log(x,  y)
       if (s1.label == "Lcrate"){
         return
       }else if (s1.label == "crate"){
