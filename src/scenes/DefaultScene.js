@@ -110,7 +110,7 @@ export default class DefaultScene extends Phaser.Scene {
     //create game timer
     if (danger){
       this.initialTime = 30
-      var text = this.add.text(16, 16, 'Countdown: ' + formatTime(this.initialTime),{
+      this.text = this.add.text(16, 16, 'Countdown: ' + formatTime(this.initialTime),{
         font: "24px monospace",
         fill: "#ffffff",
         padding: { x: 20, y: 10 },
@@ -131,9 +131,13 @@ export default class DefaultScene extends Phaser.Scene {
       function countDown ()
       {
         this.initialTime -= 1; // One second
-        text.setText('Countdown: ' + formatTime(this.initialTime));
+        this.text.setText('Countdown: ' + formatTime(this.initialTime));
         if (this.initialTime == 0){
           this.gameLose = true;
+        } else if (this.initialTime == 15){
+          this.text.setBackgroundColor('#ff6666')
+        } else if (this.initialTime == 10){
+          this.text.setBackgroundColor('#ff0000')
         }
       }
     }
@@ -266,7 +270,7 @@ export default class DefaultScene extends Phaser.Scene {
       element.setFriction(1000);
       element.setDepth(1);
       element.setDensity(100);
-      element.setFixedRotation();
+      //element.setFixedRotation();
 
     });
     this.LcrateGroup = ObjectGenerator(map, 'LCratePoint','Lcrate',4,this);
@@ -308,6 +312,7 @@ export default class DefaultScene extends Phaser.Scene {
       element.setScale(0.7);
       element.setDensity(100);
       element.setFriction(100);
+      element.setDepth(1);
       element.setFixedRotation();
 
     });
@@ -456,7 +461,7 @@ export default class DefaultScene extends Phaser.Scene {
       var enemies = this.enemyGroup;
       ////(enemies[0].body.velocity);
       for ( var i = 0; i < enemies.length; i++){
-        if (Math.abs(enemies[i].body.velocity.y) < 0.03){
+        if (Math.abs(enemies[i].body.velocity.y) < 0.05){
           enemies[i].body.setVelocityY = 0;
         }
         if (Math.abs(enemies[i].body.velocity.x) < 0.003){
@@ -593,7 +598,7 @@ export default class DefaultScene extends Phaser.Scene {
       ////(s1,s2)
       //("slip")
       ////(s2.position.x,s2.position.y)
-      var initialTime = 1
+      var initialTime = 0.5
       var timedEvent = this.time.addEvent({ delay: 1000, callback: spillcountDown});
 
 

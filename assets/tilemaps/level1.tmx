@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="448">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="451">
  <properties>
   <property name="edges" value="clamped"/>
  </properties>
@@ -563,6 +563,15 @@
    <point/>
   </object>
   <object id="447" name="crackPoint" x="578" y="766">
+   <point/>
+  </object>
+  <object id="448" name="exitPoint" x="316" y="988">
+   <point/>
+  </object>
+  <object id="449" name="exitPoint" x="485" y="988">
+   <point/>
+  </object>
+  <object id="450" name="exitPoint" x="708" y="992">
    <point/>
   </object>
  </objectgroup>
