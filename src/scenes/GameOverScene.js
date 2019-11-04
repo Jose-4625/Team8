@@ -50,7 +50,7 @@ export default class GameOverScene extends Phaser.Scene
     WebFont.load
     ({
       google:{
-        families: ['Candal', 'Modak', 'Anton', 'Amatic SC']
+        families: ['Candal', 'Modak', 'Anton', 'Neucha']
       }
     });
 
@@ -60,8 +60,8 @@ export default class GameOverScene extends Phaser.Scene
     //Display text
     var text  = 'You got fried. \n' +
                 'Better luck next time. \n\n' +
-                'Press Space to play again.'
-    this.spellOutText(350, 250, 550, text, 50, 10, '#fff', 'Amatic SC');
+                'Space bar: Play again'
+    this.spellOutText(300, 250, 550, text, 50, 10, '#fff', 'Neucha');
   }
 
 
