@@ -594,10 +594,7 @@ export default class DefaultScene extends Phaser.Scene {
       ////(s2.position.x,s2.position.y)
       var initialTime = 1
       var timedEvent = this.time.addEvent({ delay: 1000, callback: spillcountDown});
-      this.splashfx.play({
-        volume:.3,
-        loop:false
-      });
+
 
       function spillcountDown ()
       {
@@ -618,6 +615,10 @@ export default class DefaultScene extends Phaser.Scene {
       }else if (s1.label == "crate"){
         return
       }else{
+        this.splashfx.play({
+          volume:.3,
+          loop:false
+        });
         s1.gameObject.setStatic(true);
         s1.gameObject.setPosition(x,y)
       }
