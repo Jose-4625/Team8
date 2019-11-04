@@ -281,6 +281,42 @@
                  "width":0,
                  "x":256,
                  "y":1120
+                }, 
+                {
+                 "height":0,
+                 "id":419,
+                 "name":"exitPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":928,
+                 "y":1184
+                }, 
+                {
+                 "height":0,
+                 "id":420,
+                 "name":"spillPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":320,
+                 "y":1024
+                }, 
+                {
+                 "height":0,
+                 "id":421,
+                 "name":"spillPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":384,
+                 "y":1184
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -301,7 +337,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":419,
+ "nextobjectid":422,
  "orientation":"orthogonal",
  "properties":[
         {

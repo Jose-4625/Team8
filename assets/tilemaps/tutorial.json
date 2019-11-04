@@ -99,7 +99,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1568,
+                 "x":1536,
                  "y":288
                 }, 
                 {
@@ -111,8 +111,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1601.33333333333,
-                 "y":322.666666666667
+                 "x":1600,
+                 "y":320
                 }, 
                 {
                  "height":0,
@@ -149,6 +149,30 @@
                  "width":0,
                  "x":1534.66666666667,
                  "y":350.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":472,
+                 "name":"NPCPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1568,
+                 "y":256
+                }, 
+                {
+                 "height":0,
+                 "id":473,
+                 "name":"LCratePoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1632,
+                 "y":288
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -157,7 +181,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":472,
+ "nextobjectid":474,
  "orientation":"orthogonal",
  "properties":[
         {

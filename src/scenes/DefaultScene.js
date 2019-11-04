@@ -62,10 +62,10 @@ export default class DefaultScene extends Phaser.Scene {
     this.load.image("spill","./assets/resized/spill32.png");
 
     //Load crack sprites
-    this.load.image("crack", "./assets/resized/crack_3832.png");
+    this.load.image("crack", "./assets/resized/crack.png");
 
     //Load exit box
-    this.load.image("exit", "./assets/fullSized/Exit Sign.png");
+    this.load.image("exit", "./assets/resized/Exit Sign_bak.png");
 
     //Load NPC
     //this.load.image("onion", "./assets/resized/onion32.png")
@@ -153,7 +153,7 @@ export default class DefaultScene extends Phaser.Scene {
     this.player = this.matter.add.sprite(spawnPoint.x, spawnPoint.y, "Potato");
     this.player.setFriction(100)
     this.player.body.label = "Potato";
-    this.player.setDepth(10);
+    this.player.setDepth(1);
     //(this.player.body.label)
     //("player log")
     //(this.player);
@@ -275,6 +275,8 @@ export default class DefaultScene extends Phaser.Scene {
       element.setFriction(1000);
       element.setDepth(1);
       element.setDensity(100);
+      var ran = Math.random() < 0.6 ? 0 : 90;
+      element.setAngle(ran);
       //element.setFixedRotation();
 
     });
@@ -283,6 +285,10 @@ export default class DefaultScene extends Phaser.Scene {
       element.setStatic(element, true);
       element.setScale(0.5);
       element.setSensor(true);
+      var ran = Math.random() < 0.7 ? false : true;
+      if (ran && level != "tutorial") {
+        element.destroy();
+      }
     });
     //this.physics.add.collider(this.enemyGroup);
     this.crackGroup = ObjectGenerator(map,'crackPoint','crack',6, this);
@@ -290,6 +296,10 @@ export default class DefaultScene extends Phaser.Scene {
       element.setStatic(element, true);
       element.setScale(0.7);
       element.setSensor(true);
+      var ran = Math.random() < 0.7 ? false : true;
+      if (ran && level != "tutorial") {
+        element.destroy();
+      }
     });
     this.NPCGroup = ObjectGenerator(map, 'NPCPoint', 'onion', 7, this);
     this.NPCGroup.forEach(function(element){
@@ -297,10 +307,14 @@ export default class DefaultScene extends Phaser.Scene {
       element.setTexture(ran);
       element.setScale(0.7);
       element.setDensity(100);
-      element.setFriction(100000);
+      element.setFriction(100);
       element.setFixedRotation();
+
     });
-    this.exit = Object
+    this.exit = ObjectGenerator(map, 'exitPoint','exit', 8, this);
+    this.exit.forEach(function(element){
+      element.setSensor(true);
+    });
     AllCollision(this.danger,this);
 
 
@@ -592,7 +606,11 @@ export default class DefaultScene extends Phaser.Scene {
       var x = s2.position.x + this.displace()
       var y = s2.position.y + this.displace()
       console.log(x,  y)
-      if (s1.label != "Lcrate" || s1.label != "crate"){
+      if (s1.label == "Lcrate"){
+        return
+      }else if (s1.label == "crate"){
+        return
+      }else{
         s1.gameObject.setStatic(true);
         s1.gameObject.setPosition(x,y)
       }
