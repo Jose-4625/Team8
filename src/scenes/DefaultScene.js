@@ -142,7 +142,7 @@ export default class DefaultScene extends Phaser.Scene {
 
     this.matter.world.convertTilemapLayer(this.worldLayer);
     this.matter.world.convertTilemapLayer(aboveLayer);
-    this.matter.world.createDebugGraphic();
+    //this.matter.world.createDebugGraphic();
     //aboveLayer.setDepth(10);
     const spawnPoint = map.findObject(
       "Objects",
