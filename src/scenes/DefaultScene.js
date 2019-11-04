@@ -328,6 +328,7 @@ export default class DefaultScene extends Phaser.Scene {
       this.enemyView(256);
     }
     this.playerSpeedCheck();
+    this.enemyMaxSpeedCheck();
     const speed = 1.5;
     //const prevVelocity = this.player.body.velocity.clone();
     // Stop any previous movement from the last frame
@@ -522,7 +523,11 @@ export default class DefaultScene extends Phaser.Scene {
     }
 
     endScene(player, winPoint){
-      this.gameWin = true;
+      console.log("player",player)
+      if (player.label == "Potato"){
+        this.gameWin = true
+      }
+
     }
     gameOver(player, winPoint){
       this.gameLose = true;
@@ -538,6 +543,23 @@ export default class DefaultScene extends Phaser.Scene {
       }else if (this.player.body.velocity.y < -1.5){
        this.player.setVelocityY(-1);
       }
+    }
+    enemyMaxSpeedCheck(){
+      var enemies = this.enemyGroup;
+      ////(enemies[0].body.velocity);
+      for ( var i = 0; i < enemies.length; i++){
+        if (enemies[i].body.velocity.x > 1.5){
+          enemies[i].setVelocityX(1);
+        }else if (enemies[i].body.velocity.x < -1.5){
+          enemies[i].setVelocityX(-1);
+        }
+        if (enemies[i].body.velocity.y > 1.5){
+          enemies[i].setVelocityY(1);
+        }else if (enemies[i].body.velocity.y < -1.5){
+         enemies[i].setVelocityY(-1);
+        }
+      }
+
     }
     displace(){
       var int = Math.random() < 0.6 ? 20 : 40;

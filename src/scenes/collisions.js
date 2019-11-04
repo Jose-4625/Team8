@@ -18,7 +18,7 @@ function AllCollision(danger,that){
             that.gameOver();
             break;
           case 'door':
-            that.endScene();
+            that.endScene(pair.bodyA, pair.bodyB);
           default:
             break;
 
@@ -30,7 +30,7 @@ function AllCollision(danger,that){
             console.log('slip')
             break;
           case 'door':
-            that.endScene();
+            that.endScene(pair.bodyA, pair.bodyB);
           default:
             break;
       }
@@ -65,6 +65,7 @@ function AllCollision(danger,that){
 
         }
       }
+
     //console.log("bodyA");
     //console.log(pair.bodyA.label);
     //console.log("bodyB");
