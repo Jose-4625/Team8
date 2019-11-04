@@ -431,8 +431,8 @@ export default class DefaultScene extends Phaser.Scene {
     }
     var angleBetween = Phaser.Math.Angle.Between(i.x, i.y, this.player.x, this.player.y);
     ////(degrees(angleBetween))
-    i.setVelocityX(Math.cos(angleBetween) * 2);
-    i.setVelocityY(Math.sin(angleBetween) * 2);
+    i.setVelocityX(Math.cos(angleBetween) * 1.5);
+    i.setVelocityY(Math.sin(angleBetween) * 1.5);
     this.setEnemyFrame(i);
 
   }
