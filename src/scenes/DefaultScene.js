@@ -548,6 +548,7 @@ export default class DefaultScene extends Phaser.Scene {
       this.gameLose = true;
     }
     playerSpeedCheck(){
+      this.player.setAngularVelocity(0);
       if (this.player.body.velocity.x > 1.5){
         this.player.setVelocityX(1);
       }else if (this.player.body.velocity.x < -1.5){
