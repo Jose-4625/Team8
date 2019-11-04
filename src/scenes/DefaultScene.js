@@ -10,7 +10,7 @@ export default class DefaultScene extends Phaser.Scene {
   init (data) {
     // Initialization code goes here
     this.level = data.level;
-    //(this.level);
+    console.log(this.level);
   }
 
 
@@ -65,7 +65,7 @@ export default class DefaultScene extends Phaser.Scene {
     this.load.image("crack", "./assets/resized/crack_3832.png");
 
     //Load exit box
-    this.load.image("exit", "./assets/resized/exit.png");
+    this.load.image("exit", "./assets/fullSized/Exit Sign.png");
 
     //Load NPC
     //this.load.image("onion", "./assets/resized/onion32.png")
@@ -74,6 +74,7 @@ export default class DefaultScene extends Phaser.Scene {
 
 
   create(mapKey,danger) {
+    this.danger = danger;
     //Add change scene event listeners
     ChangeScene.addSceneEventListeners(this, this.level);
     //add music
@@ -299,7 +300,8 @@ export default class DefaultScene extends Phaser.Scene {
       element.setFriction(100000);
       element.setFixedRotation();
     });
-    AllCollision(danger,this);
+    this.exit = Object
+    AllCollision(this.danger,this);
 
 
   }
@@ -326,6 +328,7 @@ export default class DefaultScene extends Phaser.Scene {
       this.enemyView(256);
     }
     this.playerSpeedCheck();
+    this.enemyMaxSpeedCheck();
     const speed = 1.5;
     //const prevVelocity = this.player.body.velocity.clone();
     // Stop any previous movement from the last frame
@@ -405,7 +408,7 @@ export default class DefaultScene extends Phaser.Scene {
   }
 
    setEnemyFrame(enemy){
-
+     //console.log("cook",enemy.body.velocity.x,enemy.body.velocity.y)
       if (enemy.body.velocity.x < 0 && Math.abs(enemy.body.velocity.x) > Math.abs(enemy.body.velocity.y)){
         //enemy.anims.play('cook_walk_right')
         enemy.anims.play('cook_Cont_right')
@@ -429,8 +432,8 @@ export default class DefaultScene extends Phaser.Scene {
     }
     var angleBetween = Phaser.Math.Angle.Between(i.x, i.y, this.player.x, this.player.y);
     ////(degrees(angleBetween))
-    i.setVelocityX(Math.cos(angleBetween) * 2);
-    i.setVelocityY(Math.sin(angleBetween) * 2);
+    i.setVelocityX(Math.cos(angleBetween) * 1.5);
+    i.setVelocityY(Math.sin(angleBetween) * 1.5);
     this.setEnemyFrame(i);
 
   }
@@ -520,7 +523,11 @@ export default class DefaultScene extends Phaser.Scene {
     }
 
     endScene(player, winPoint){
-      this.gameWin = true;
+      console.log("player",player)
+      if (player.label == "Potato"){
+        this.gameWin = true
+      }
+
     }
     gameOver(player, winPoint){
       this.gameLose = true;
@@ -537,8 +544,25 @@ export default class DefaultScene extends Phaser.Scene {
        this.player.setVelocityY(-1);
       }
     }
+    enemyMaxSpeedCheck(){
+      var enemies = this.enemyGroup;
+      ////(enemies[0].body.velocity);
+      for ( var i = 0; i < enemies.length; i++){
+        if (enemies[i].body.velocity.x > 1.5){
+          enemies[i].setVelocityX(1);
+        }else if (enemies[i].body.velocity.x < -1.5){
+          enemies[i].setVelocityX(-1);
+        }
+        if (enemies[i].body.velocity.y > 1.5){
+          enemies[i].setVelocityY(1);
+        }else if (enemies[i].body.velocity.y < -1.5){
+         enemies[i].setVelocityY(-1);
+        }
+      }
+
+    }
     displace(){
-      var int = Math.random() < 0.6 ? 30 : 40;
+      var int = Math.random() < 0.6 ? 20 : 40;
       var plusOrMinus = Math.random() < 0.6 ? -1 : 1;
       ////(int)
       return (int * plusOrMinus);
@@ -553,7 +577,7 @@ export default class DefaultScene extends Phaser.Scene {
         volume:.3,
         loop:false
       });
-      s1.gameObject.setStatic(true);
+
       function spillcountDown ()
       {
         initialTime -= 1; // One second
@@ -564,18 +588,15 @@ export default class DefaultScene extends Phaser.Scene {
           timedEvent.remove();
         }
       }
-      console.log('bodyA',s1)
+      console.log('bodyA',s1.label)
       var x = s2.position.x + this.displace()
       var y = s2.position.y + this.displace()
       console.log(x,  y)
-      s1.gameObject.setPosition(x,y)
-      var twn = this.tweens.add({
-      targets: s1,
-      x: x,
-      y: y,
-      ease: "Elastic",
-      duration: 1000
-    });
+      if (s1.label != "Lcrate" || s1.label != "crate"){
+        s1.gameObject.setStatic(true);
+        s1.gameObject.setPosition(x,y)
+      }
+
 
     }
   }

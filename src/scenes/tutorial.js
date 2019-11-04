@@ -6,12 +6,12 @@ export default class Tutorial extends DefaultScene {
     super('tutorial');
   }
   init(data){
-    super.import_test();
+    //super.import_test();
     return super.init({level:'tutorial'});
 
   }
   preload(){
-    this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
+    //this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
     this.mapKey = 'tutorial'
     this.mapPath = "./assets/tilemaps/tutorial.json"
     return super.preload(this.mapKey, this.mapPath);
