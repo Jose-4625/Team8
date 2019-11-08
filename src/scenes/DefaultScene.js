@@ -143,7 +143,7 @@ export default class DefaultScene extends Phaser.Scene {
       }
     }
     this.worldLayer.setCollisionByProperty({ collides: true});
-    aboveLayer.setDepth(10);
+    aboveLayer.setDepth(20);
 
     this.matter.world.convertTilemapLayer(this.worldLayer);
     this.matter.world.convertTilemapLayer(aboveLayer);
@@ -158,7 +158,7 @@ export default class DefaultScene extends Phaser.Scene {
     this.player = this.matter.add.sprite(spawnPoint.x, spawnPoint.y, "Potato");
     this.player.setFriction(100)
     this.player.body.label = "Potato";
-    this.player.setDepth(1);
+    this.player.setDepth(10);
     this.checkVel = true;
     //(this.player.body.label)
     //("player log")
@@ -330,7 +330,7 @@ export default class DefaultScene extends Phaser.Scene {
   update (next) {
     // Update the scene
     var musicmuted=this.music.mute; //For muting
-
+    console.log(this.player)
 
     if(this.gameWin){
       this.music.stop();
@@ -555,7 +555,16 @@ export default class DefaultScene extends Phaser.Scene {
       this.gameLose = true;
     }
     playerSpeedCheck(bool){
-      this.player.setAngularVelocity(0);
+
+      this.player.body.inertia = 20
+      //console.log(this.player.body.position)
+      //console.log(this.player.body.position.x, this.player.body.position.y)
+      if (this.player.body.position.y < 0 || this.player.body.position.x < 0){
+        this.player.setPosition(this.player.body.positionPrev.x, this.player.body.positionPrev.y)
+        this.player.setDepth(10);
+        //console.log("error")
+        //console.log("returned",this.player.body.position.x, this.player.body.position.y)
+      }
       if (bool){
         if (this.player.body.velocity.x > 1.5){
           this.player.setVelocityX(1);
@@ -605,7 +614,7 @@ export default class DefaultScene extends Phaser.Scene {
       ////(s2.position.x,s2.position.y)
       var initialTime = 0.5
       var timedEvent = this.time.addEvent({ delay: 1000, callback: spillcountDown});
-      this.checkVel = false;
+      //this.checkVel = false;
 
       function spillcountDown ()
       {
