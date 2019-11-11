@@ -10,7 +10,7 @@ export default class BootScene extends Phaser.Scene
   preload()
   {
     //Preload assets
-    this.load.audio('theme', './assets/sounds/InGame.wav');
+    this.load.audio('theme', './assets/sounds/Title.wav');
     this.load.audio('select', './assets/sounds/select.wav');
 
     //Load spritesheets

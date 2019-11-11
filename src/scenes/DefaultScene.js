@@ -28,6 +28,7 @@ export default class DefaultScene extends Phaser.Scene {
     this.load.audio("pausefx","./assets/sounds/Kindlich Text.mp3");
     this.load.audio("splash","./assets/sounds/splash.wav");
     this.load.audio("doorfx","./assets/sounds/Door.wav");
+    this.load.audio("chefsfx","./assets/sounds/chefsfx.mp3");
     //Loads potato player sprite
     //this.load.image("potato", "./assets/potato.png");
     this.load.spritesheet('Potato', "./assets/resized/pot32.png",{
@@ -105,6 +106,7 @@ export default class DefaultScene extends Phaser.Scene {
     this.splashfx=this.sound.add('splash');
     this.doorfx=this.sound.add('doorfx');
     this.pausefx=this.sound.add('pausefx');
+    this.chefsfx=this.sound.add('chefsfx');
     //load map
     this.gameWin = false;
     this.gameLose = false;
@@ -416,8 +418,15 @@ export default class DefaultScene extends Phaser.Scene {
         if (Phaser.Math.Distance.Between(this.player.x, this.player.y, enemies[i].x, enemies[i].y ) <= distance){
           this.enemyChase(enemies[i]);
           this.chase = true;
-
-
+          //chefsfx will lopp while in range
+          if (this.chefsfx.isPlaying == false){
+            this.chefsfx.play({
+              volume:.3,
+              loop: false
+            });
+          }
+          //chefsfx will loop while in range
+          
         }else {
           this.chase = false;
         }
