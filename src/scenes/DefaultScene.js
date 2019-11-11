@@ -306,6 +306,7 @@ export default class DefaultScene extends Phaser.Scene {
     });
     this.spillGroup = ObjectGenerator(map,'spillPoint','spill',5,this,[hitbox.spill32,null]);
     this.spillGroup.forEach(function(element){
+      console.log(element)
       element.setStatic(element, true);
       element.setScale(0.5);
       element.setSensor(true);
@@ -390,6 +391,8 @@ export default class DefaultScene extends Phaser.Scene {
       this.player.flipX = false;
       this.player.angle = 0;
       this.player.setSize(22,32,32,32);
+    }else{
+      this.player.setVelocityX(0);
     }
 
     // Vertical movement
@@ -403,6 +406,8 @@ export default class DefaultScene extends Phaser.Scene {
       this.player.anims.play('walk', true);
       this.player.angle = 270;
       this.player.setSize(32,22,32,32);
+    }else{
+      this.player.setVelocityY(0);
     }
 
 
@@ -427,7 +432,7 @@ export default class DefaultScene extends Phaser.Scene {
             });
           }
           //chefsfx will loop while in range
-          
+
         }else {
           this.chase = false;
         }
@@ -634,7 +639,7 @@ export default class DefaultScene extends Phaser.Scene {
 
     }
     slip(s1,s2){
-      ////(s1,s2)
+      console.log(s1,s2)
       //("slip")
       ////(s2.position.x,s2.position.y)
       var initialTime = 0.5
@@ -652,12 +657,15 @@ export default class DefaultScene extends Phaser.Scene {
         }
       }
 
-      var x = s1.position.x + 15 * s1.velocity.x;
-      var y = s1.position.y + 15 * s1.velocity.y;
-      //console.log(x,  y)
+      var x = s1.position.x + s1.velocity.x * 3;
+      var y = s1.position.y + s1.velocity.y * 3
+      s1.gameObject.setPosition(x,y)
+      console.log(x,  y)
       if (s1.label == "Lcrate"){
+        s1.gameObject.setPosition(x,y)
         return
       }else if (s1.label == "crate"){
+        s1.gameObject.setPosition(x,y)
         return
       }else{
         this.splashfx.play({
@@ -666,7 +674,7 @@ export default class DefaultScene extends Phaser.Scene {
         });
         s1.gameObject.setPosition(x,y)
         //console.log(s1.position)
-        this.checkVel = true;
+
       }
 
 

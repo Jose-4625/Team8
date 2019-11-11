@@ -106,9 +106,9 @@ function AllCollision(danger,that){
         }
       }
       if (pair.bodyA.parent.label === "Lcrate"){
-        switch (pair.bodyB.label){
+        switch (pair.bodyB.parent.label){
           case 'spill':
-            pair.isActive = false;
+            that.slip(pair.bodyA.parent, pair.bodyB)
             break;
           default:
             break;
@@ -143,12 +143,12 @@ function AllCollision(danger,that){
 
         }
       }
-    /*if (pair.bodyB.label !== "Cook"){
+    if (pair.bodyB.label !== "Cook"){
       console.log("bodyA");
       console.log(pair.bodyA.parent.label);
       console.log("bodyB");
-      console.log(pair.bodyB.label);
-    }*/
+      console.log(pair.bodyB.parent.label);
+    }
 
     });
 
