@@ -658,8 +658,8 @@ export default class DefaultScene extends Phaser.Scene {
         }
       }
 
-      var x = s1.position.x + s1.velocity.x * 3;
-      var y = s1.position.y + s1.velocity.y * 3
+      var x = s1.position.x + s1.velocity.x * 10;
+      var y = s1.position.y + s1.velocity.y * 10
       s1.gameObject.setPosition(x,y)
       console.log(x,  y)
       if (s1.label == "Lcrate"){
