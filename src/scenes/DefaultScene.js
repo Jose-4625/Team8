@@ -10,7 +10,7 @@ export default class DefaultScene extends Phaser.Scene {
   init (data) {
     // Initialization code goes here
     this.level = data.level;
-    console.log(this.level);
+
 
   }
 
@@ -34,14 +34,20 @@ export default class DefaultScene extends Phaser.Scene {
       frameHeight: 32,
       frameWidth: 22
     });
+    this.load.json('Shape', "./assets/resized/shape.json")
 
-    this.load.spritesheet('Cook', "./assets/resized/CookAnimation.png",{
+    this.load.spritesheet('cookIdle', "./assets/resized/CookIdle.png",{
       frameHeight: 60,
+      frameWidth: 63
+    });
+
+    this.load.spritesheet('Cookwalk', "./assets/resized/Cookwalk.png",{
+      frameHeight: 63,
       frameWidth: 60
     });
     this.load.spritesheet('CookAway', "./assets/resized/CookAwayAnimation.png",{
-      frameHeight: 64,
-      frameWidth: 53
+      frameHeight: 63,
+      frameWidth: 60
     });
     this.load.spritesheet('onion', "./assets/resized/Onion_animation2331.png",{
       frameHeight: 31,
@@ -76,6 +82,7 @@ export default class DefaultScene extends Phaser.Scene {
 
   create(mapKey,danger) {
     this.danger = danger;
+    this.chase = true;
     //Add change scene event listeners
     ChangeScene.addSceneEventListeners(this, this.level);
     //add music
@@ -147,7 +154,8 @@ export default class DefaultScene extends Phaser.Scene {
 
     this.matter.world.convertTilemapLayer(this.worldLayer);
     this.matter.world.convertTilemapLayer(aboveLayer);
-    //this.matter.world.createDebugGraphic();
+    this.matter.world.createDebugGraphic();
+    var hitbox = this.cache.json.get("Shape")
     //aboveLayer.setDepth(10);
     const spawnPoint = map.findObject(
       "Objects",
@@ -155,10 +163,15 @@ export default class DefaultScene extends Phaser.Scene {
     );
 
     //player attributes
-    this.player = this.matter.add.sprite(spawnPoint.x, spawnPoint.y, "Potato");
+    this.player = this.matter.add.sprite(spawnPoint.x, spawnPoint.y, "Potato", "Potato" ,{shape: hitbox.pot32});
+    console.log(this.player)
     this.player.setFriction(100)
     this.player.body.label = "Potato";
     this.player.setDepth(10);
+    this.player.setSize(20,20)
+    console.log(this.player)
+
+    console.log(hitbox.pot32)
     this.checkVel = true;
     //(this.player.body.label)
     //("player log")
@@ -187,32 +200,32 @@ export default class DefaultScene extends Phaser.Scene {
     });
     this.anims.create({
         key: 'cook_idle',
-        frames: this.anims.generateFrameNumbers('Cook', { frames:[0,1,6,7]}),
+        frames: this.anims.generateFrameNumbers('cookIdle', {start:0, end:9}),
         frameRate: 5,
         repeat: -1
     });
     this.anims.create({
         key: "cook_walk_right",
-        frames: this.anims.generateFrameNumbers('Cook', { start: 0, end: 2}),
+        frames: this.anims.generateFrameNumbers('cookIdle', { start: 0, end: 2}),
         frameRate: 5,
         repeat: 1
       });
       this.anims.create({
           key: "cook_Cont_right",
-          frames: this.anims.generateFrameNumbers('Cook', { start: 2, end: 3}),
+          frames: this.anims.generateFrameNumbers('Cookwalk', { start: 0, end: 6}),
           frameRate: 10,
           repeat: -1
         });
       this.anims.create({
           key: "cook_walk_up",
-          frames: this.anims.generateFrameNumbers('CookAway', { start: 0, end: 1}),
-          frameRate: 10,
+          frames: this.anims.generateFrameNumbers('CookAway', { start: 0, end: 5}),
+          frameRate: 5,
           repeat: -1
         });
       this.anims.create({
           key: "cook_face_right",
-          frames: this.anims.generateFrameNumbers('Cook', { start: 2, end: 3}),
-          frameRate: 3,
+          frames: this.anims.generateFrameNumbers('Cookwalk', { start: 7, end: 13}),
+          frameRate: 10,
           repeat: 1
         });
     this.anims.create({
@@ -246,12 +259,14 @@ export default class DefaultScene extends Phaser.Scene {
         repeat: 0
     });
 
-
+    console.log(hitbox)
     //win condition
     this.winGroup = ObjectGenerator(map,'winPoint','door',1, this);
-
+    this.winGroup.forEach(function(element){
+      element.setStatic(element, true);
+    })
     //enemy attributes
-    this.enemyGroup = ObjectGenerator(map, 'enemyPoint', 'Cook',2,this);
+    this.enemyGroup = ObjectGenerator(map, 'enemyPoint', 'Cook', 2, this, );
     //(this.enemyGroup);
     this.enemyGroup.forEach(function(element){
       element.setBounce(0);
@@ -266,7 +281,7 @@ export default class DefaultScene extends Phaser.Scene {
       element.setVelocityY(Phaser.Math.Between(-1, 1));
     });
 
-    this.crateGroup = ObjectGenerator(map, 'enemyPoint','crate',3,this);
+    this.crateGroup = ObjectGenerator(map, 'cratePoint','crate',3,this);
     this.crateGroup.forEach(function(element){
       element.setBounce(0);
       element.setFriction(1000);
@@ -286,7 +301,7 @@ export default class DefaultScene extends Phaser.Scene {
       //element.setFixedRotation();
 
     });
-    this.spillGroup = ObjectGenerator(map,'spillPoint','spill',5,this);
+    this.spillGroup = ObjectGenerator(map,'spillPoint','spill',5,this,[hitbox.spill32,null]);
     this.spillGroup.forEach(function(element){
       element.setStatic(element, true);
       element.setScale(0.5);
@@ -297,7 +312,7 @@ export default class DefaultScene extends Phaser.Scene {
       }
     });
     //this.physics.add.collider(this.enemyGroup);
-    this.crackGroup = ObjectGenerator(map,'crackPoint','crack',6, this);
+    this.crackGroup = ObjectGenerator(map,'crackPoint','crack',6, this,[hitbox.crack, null]);
     this.crackGroup.forEach(function(element){
       element.setStatic(element, true);
       element.setScale(0.7);
@@ -307,7 +322,7 @@ export default class DefaultScene extends Phaser.Scene {
         element.destroy();
       }
     });
-    this.NPCGroup = ObjectGenerator(map, 'NPCPoint', 'onion', 7, this);
+    this.NPCGroup = ObjectGenerator(map, 'NPCPoint', 'onion', 7, this,[hitbox.Onion_Animation, null]);
     this.NPCGroup.forEach(function(element){
       var ran = Math.random() < 0.6 ? "onion" : "tomato";
       element.setTexture(ran);
@@ -330,7 +345,7 @@ export default class DefaultScene extends Phaser.Scene {
   update (next) {
     // Update the scene
     var musicmuted=this.music.mute; //For muting
-    console.log(this.player)
+
 
     if(this.gameWin){
       this.music.stop();
@@ -400,11 +415,12 @@ export default class DefaultScene extends Phaser.Scene {
       for ( var i = 0; i < enemies.length; i++){
         if (Phaser.Math.Distance.Between(this.player.x, this.player.y, enemies[i].x, enemies[i].y ) <= distance){
           this.enemyChase(enemies[i]);
+          this.chase = true;
 
 
-        }/*else {
-          this.enemyWander(enemies[i]);
-        }*/
+        }else {
+          this.chase = false;
+        }
       }
     }
 
@@ -433,17 +449,18 @@ export default class DefaultScene extends Phaser.Scene {
       if (enemy.body.velocity.x < 0 && Math.abs(enemy.body.velocity.x) > Math.abs(enemy.body.velocity.y)){
         //enemy.anims.play('cook_walk_right')
         enemy.anims.play('cook_Cont_right')
-        enemy.flipX = true;
+        enemy.flipX = false;
       } else if(enemy.body.velocity.x > 0 && Math.abs(enemy.body.velocity.x) > Math.abs(enemy.body.velocity.y)){
         //enemy.anims.play('cook_walk_right')
         enemy.anims.play('cook_Cont_right')
-        enemy.flipX = false;
+        enemy.flipX = true;
       }
-      if (enemy.body.velocity.y < 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
+      else if (enemy.body.velocity.y < 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
         enemy.anims.play('cook_walk_up')
       } else if(enemy.body.velocity.y > 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
         enemy.anims.play('cook_idle')
       }
+      //console.log(enemy.anims)
 
   }
   enemyChase(enemy){
@@ -462,24 +479,27 @@ export default class DefaultScene extends Phaser.Scene {
     enemyCheckSpeed(){
       var enemies = this.enemyGroup;
       ////(enemies[0].body.velocity);
-      for ( var i = 0; i < enemies.length; i++){
-        if (Math.abs(enemies[i].body.velocity.y) < 0.05){
-          enemies[i].body.setVelocityY = 0;
-        }
-        if (Math.abs(enemies[i].body.velocity.x) < 0.003){
-          enemies[i].body.setVelocityX = 0;
-        }
-        if (enemies[i].body.velocity.x == 0 || enemies[i].body.velocity.y == 0){
-          enemies[i].setVelocityX(Phaser.Math.Between(-1.5, 1.5));
-          enemies[i].setVelocityY(Phaser.Math.Between(-1.5, 1.5));
-          this.setEnemyFrame(enemies[i]);
-        }else{
-          enemies[i].setVelocityX(enemies[i].body.velocity.x);
-          enemies[i].setVelocityY(enemies[i].body.velocity.y);
-          this.setEnemyFrame(enemies[i]);
+      if (!this.chase){
+        for ( var i = 0; i < enemies.length; i++){
+          if (Math.abs(enemies[i].body.velocity.y) < 0.05){
+            enemies[i].setVelocityY(0);
+          }
+          if (Math.abs(enemies[i].body.velocity.x) < 0.003){
+            enemies[i].setVelocityX(0);
+          }
+          if (enemies[i].body.velocity.x == 0 || enemies[i].body.velocity.y == 0){
+            enemies[i].setVelocityX(Phaser.Math.Between(-1.5, 1.5));
+            enemies[i].setVelocityY(Phaser.Math.Between(-1.5, 1.5));
 
+          }else{
+            enemies[i].setVelocityX(enemies[i].body.velocity.x);
+            enemies[i].setVelocityY(enemies[i].body.velocity.y);
+
+          }
+          this.setEnemyFrame(enemies[i]);
         }
       }
+
     }
     NPCCheckSpeed(){
       var NPCs = this.NPCGroup;
@@ -599,14 +619,9 @@ export default class DefaultScene extends Phaser.Scene {
         if (enemies[i].body.velocity.y == NaN && enemies[i].body.velocity.x == NaN){
           enemies[i].prevPosition();
         }
+        this.setEnemyFrame(enemies[i]);
       }
 
-    }
-    displace(){
-      var int = Math.random() < 0.6 ? 20 : 40;
-      var plusOrMinus = Math.random() < 0.6 ? -1 : 1;
-      ////(int)
-      return (int * plusOrMinus);
     }
     slip(s1,s2){
       ////(s1,s2)
@@ -627,8 +642,8 @@ export default class DefaultScene extends Phaser.Scene {
         }
       }
 
-      var x = s1.position.x + 30 * s1.velocity.x;
-      var y = s1.position.y + 30 * s1.velocity.y;
+      var x = s1.position.x + 15 * s1.velocity.x;
+      var y = s1.position.y + 15 * s1.velocity.y;
       //console.log(x,  y)
       if (s1.label == "Lcrate"){
         return
