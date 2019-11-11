@@ -42,7 +42,11 @@ export default class DefaultScene extends Phaser.Scene {
       frameHeight: 60,
       frameWidth: 63
     });
-
+    this.load.spritesheet('RedCookIdle', "./assets/resized/RedCookIdle.png",
+    {
+      frameHeight: 60,
+      frameWidth: 63
+    });
     this.load.spritesheet('Cookwalk', "./assets/resized/Cookwalk.png",{
       frameHeight: 63,
       frameWidth: 60
@@ -126,7 +130,7 @@ export default class DefaultScene extends Phaser.Scene {
         fill: "#ffffff",
         padding: { x: 20, y: 10 },
         backgroundColor: "#000000"
-      }).setDepth(20)
+      }).setDepth(10)
       .setScrollFactor(0);
       this.timedEvent = this.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, loop: true });
       function formatTime(seconds){
@@ -153,7 +157,7 @@ export default class DefaultScene extends Phaser.Scene {
       }
     }
     this.worldLayer.setCollisionByProperty({ collides: true});
-    aboveLayer.setDepth(15);
+    aboveLayer.setDepth(20);
 
     this.matter.world.convertTilemapLayer(this.worldLayer);
     this.matter.world.convertTilemapLayer(aboveLayer);
@@ -204,6 +208,12 @@ export default class DefaultScene extends Phaser.Scene {
     this.anims.create({
         key: 'cook_idle',
         frames: this.anims.generateFrameNumbers('cookIdle', {start:0, end:9}),
+        frameRate: 5,
+        repeat: -1
+    });
+    this.anims.create({
+        key: 'red_cook_idle',
+        frames: this.anims.generateFrameNumbers('RedCookIdle', {start:0, end:9}),
         frameRate: 5,
         repeat: -1
     });
@@ -262,14 +272,14 @@ export default class DefaultScene extends Phaser.Scene {
         repeat: 0
     });
 
-
+    console.log(hitbox)
     //win condition
     this.winGroup = ObjectGenerator(map,'winPoint','door',1, this);
     this.winGroup.forEach(function(element){
       element.setStatic(element, true);
     })
     //enemy attributes
-    this.enemyGroup = ObjectGenerator(map, 'enemyPoint', 'Cook', 2, this );
+    this.enemyGroup = ObjectGenerator(map, 'enemyPoint', 'Cook', 2, this, );
     //(this.enemyGroup);
     this.enemyGroup.forEach(function(element){
       element.setBounce(0);
@@ -304,12 +314,11 @@ export default class DefaultScene extends Phaser.Scene {
       //element.setFixedRotation();
 
     });
-    this.spillGroup = ObjectGenerator(map,'spillPoint','spill',5,this);
+    this.spillGroup = ObjectGenerator(map,'spillPoint','spill',5,this,[hitbox.spill32,null]);
     this.spillGroup.forEach(function(element){
       console.log(element)
       element.setStatic(element, true);
       element.setScale(0.5);
-      element.setSensor(true);
       element.setSensor(true);
       var ran = Math.random() < 0.7 ? false : true;
       if (ran && level != "tutorial") {
@@ -317,7 +326,7 @@ export default class DefaultScene extends Phaser.Scene {
       }
     });
     //this.physics.add.collider(this.enemyGroup);
-    this.crackGroup = ObjectGenerator(map,'crackPoint','crack',6, this);
+    this.crackGroup = ObjectGenerator(map,'crackPoint','crack',6, this,[hitbox.crack, null]);
     this.crackGroup.forEach(function(element){
       element.setStatic(element, true);
       element.setScale(0.7);
@@ -366,11 +375,11 @@ export default class DefaultScene extends Phaser.Scene {
     this.doorCheck(128);
     //(this.player.body.velocity.x, this.player.body.velocity.y)
     if (Math.sin(this.time.now) > 0.3){
-      this.enemyView(150);
+      this.enemyView(200);
     }
     this.playerSpeedCheck(this.checkVel);
     this.enemyMaxSpeedCheck();
-    const speed = 1.3;
+    const speed = 1.5;
     //const prevVelocity = this.player.body.velocity.clone();
     // Stop any previous movement from the last frame
     if (this.cursors.left.isUp && this.cursors.right.isUp && this.cursors.up.isUp && this.cursors.down.isUp){
@@ -473,8 +482,8 @@ export default class DefaultScene extends Phaser.Scene {
       }
       else if (enemy.body.velocity.y < 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
         enemy.anims.play('cook_walk_up')
-      } else if(enemy.body.velocity.y > 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
-        enemy.anims.play('cook_idle')
+      } else if(this.chase && enemy.body.velocity.y > 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
+        enemy.anims.play('red_cook_idle')
       }
       //console.log(enemy.anims)
 
@@ -489,7 +498,6 @@ export default class DefaultScene extends Phaser.Scene {
     i.setVelocityX(Math.cos(angleBetween) * 1.5);
     i.setVelocityY(Math.sin(angleBetween) * 1.5);
     this.setEnemyFrame(i);
-
   }
 
     enemyCheckSpeed(){
@@ -658,8 +666,8 @@ export default class DefaultScene extends Phaser.Scene {
         }
       }
 
-      var x = s1.position.x + s1.velocity.x * 10;
-      var y = s1.position.y + s1.velocity.y * 10
+      var x = s1.position.x + s1.velocity.x * 3;
+      var y = s1.position.y + s1.velocity.y * 3
       s1.gameObject.setPosition(x,y)
       console.log(x,  y)
       if (s1.label == "Lcrate"){

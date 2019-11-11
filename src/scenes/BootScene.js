@@ -19,6 +19,11 @@ export default class BootScene extends Phaser.Scene
       frameHeight: 185,
       frameWidth: 181
     });
+    this.load.spritesheet('redCookBoot', "./assets/fullSized/Cook Animation Red Version.png",
+    {
+      frameHeight: 185,
+      frameWidth: 181
+    });
     this.load.spritesheet('potatoBoot', "./assets/fullSized/potatoFullSized.png",
     {
       frameHeight: 350,
@@ -80,10 +85,17 @@ export default class BootScene extends Phaser.Scene
     this.anims.create
     ({
         key: "cook_running",
-        frames: this.anims.generateFrameNumbers('cookBoot', { start: 2, end: 3 }),
-        frameRate: 10,
+        frames: this.anims.generateFrameNumbers('cookBoot', { start: 20, end: 26 }),
+        frameRate: 20,
         repeat: -1
     });
+    this.anims.create
+    ({
+      key: "red_cook_running",
+      frames: this.anims.generateFrameNumbers('redCookBoot', { start: 20, end: 26 }),
+      frameRate: 20,
+      repeat: -1
+    })
     this.anims.create
     ({
         key: "potato_rolling",
@@ -160,7 +172,7 @@ export default class BootScene extends Phaser.Scene
     if (this.cook.x <= 500 && this.cook.direction == "right")
     {
       this.cook.flipX = false;
-      this.cook.anims.play("cook_running", true);
+      this.cook.anims.play("red_cook_running", true);
       this.cook.x += 3.5;
       this.potato.anims.play("potato_rolling", true);
       this.potato.x += 3.5;
@@ -168,6 +180,7 @@ export default class BootScene extends Phaser.Scene
     }
     else if (this.cook.x >= 150)
     {
+      this.cook.anims.play("cook_running", true);
       this.cook.direction = "left"
       this.cook.flipX = true;
       this.cook.x -= 3.5;
