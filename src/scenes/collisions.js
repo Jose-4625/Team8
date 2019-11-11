@@ -143,12 +143,12 @@ function AllCollision(danger,that){
 
         }
       }
-    if (pair.bodyB.label !== "Cook"){
+    /*if (pair.bodyB.label !== "Cook"){
       console.log("bodyA");
       console.log(pair.bodyA.parent.label);
       console.log("bodyB");
       console.log(pair.bodyB.parent.label);
-    }
+    }*/
 
     });
 

@@ -126,7 +126,7 @@ export default class DefaultScene extends Phaser.Scene {
         fill: "#ffffff",
         padding: { x: 20, y: 10 },
         backgroundColor: "#000000"
-      }).setDepth(10)
+      }).setDepth(20)
       .setScrollFactor(0);
       this.timedEvent = this.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, loop: true });
       function formatTime(seconds){
@@ -153,11 +153,11 @@ export default class DefaultScene extends Phaser.Scene {
       }
     }
     this.worldLayer.setCollisionByProperty({ collides: true});
-    aboveLayer.setDepth(20);
+    aboveLayer.setDepth(15);
 
     this.matter.world.convertTilemapLayer(this.worldLayer);
     this.matter.world.convertTilemapLayer(aboveLayer);
-    this.matter.world.createDebugGraphic();
+    //this.matter.world.createDebugGraphic();
     var hitbox = this.cache.json.get("Shape")
     //aboveLayer.setDepth(10);
     const spawnPoint = map.findObject(
@@ -262,14 +262,14 @@ export default class DefaultScene extends Phaser.Scene {
         repeat: 0
     });
 
-    console.log(hitbox)
+
     //win condition
     this.winGroup = ObjectGenerator(map,'winPoint','door',1, this);
     this.winGroup.forEach(function(element){
       element.setStatic(element, true);
     })
     //enemy attributes
-    this.enemyGroup = ObjectGenerator(map, 'enemyPoint', 'Cook', 2, this, );
+    this.enemyGroup = ObjectGenerator(map, 'enemyPoint', 'Cook', 2, this );
     //(this.enemyGroup);
     this.enemyGroup.forEach(function(element){
       element.setBounce(0);
@@ -304,11 +304,12 @@ export default class DefaultScene extends Phaser.Scene {
       //element.setFixedRotation();
 
     });
-    this.spillGroup = ObjectGenerator(map,'spillPoint','spill',5,this,[hitbox.spill32,null]);
+    this.spillGroup = ObjectGenerator(map,'spillPoint','spill',5,this);
     this.spillGroup.forEach(function(element){
       console.log(element)
       element.setStatic(element, true);
       element.setScale(0.5);
+      element.setSensor(true);
       element.setSensor(true);
       var ran = Math.random() < 0.7 ? false : true;
       if (ran && level != "tutorial") {
@@ -316,7 +317,7 @@ export default class DefaultScene extends Phaser.Scene {
       }
     });
     //this.physics.add.collider(this.enemyGroup);
-    this.crackGroup = ObjectGenerator(map,'crackPoint','crack',6, this,[hitbox.crack, null]);
+    this.crackGroup = ObjectGenerator(map,'crackPoint','crack',6, this);
     this.crackGroup.forEach(function(element){
       element.setStatic(element, true);
       element.setScale(0.7);
@@ -365,11 +366,11 @@ export default class DefaultScene extends Phaser.Scene {
     this.doorCheck(128);
     //(this.player.body.velocity.x, this.player.body.velocity.y)
     if (Math.sin(this.time.now) > 0.3){
-      this.enemyView(200);
+      this.enemyView(150);
     }
     this.playerSpeedCheck(this.checkVel);
     this.enemyMaxSpeedCheck();
-    const speed = 1.5;
+    const speed = 1.3;
     //const prevVelocity = this.player.body.velocity.clone();
     // Stop any previous movement from the last frame
     if (this.cursors.left.isUp && this.cursors.right.isUp && this.cursors.up.isUp && this.cursors.down.isUp){
