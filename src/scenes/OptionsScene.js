@@ -10,6 +10,7 @@ export default class OptionsScene extends Phaser.Scene
   {
     this.source = data.source
     console.log(this.source)
+    console.log(this.registry.get('dog'))
   }
 
   preload()
@@ -47,7 +48,7 @@ export default class OptionsScene extends Phaser.Scene
         families: ['Permanent Marker', 'Modak', 'Anton', 'Neucha']
       }
     });
-    
+
     //Display background
     this.add.sprite(400, 280, 'storeback').setScale(0.6);
 

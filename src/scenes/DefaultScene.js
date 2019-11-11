@@ -9,7 +9,8 @@ export default class DefaultScene extends Phaser.Scene {
 
   init (data) {
     // Initialization code goes here
-    this.level = data.level;
+    this.level = data.level
+    this.registry.set({"dog":"woof"})
 
 
   }

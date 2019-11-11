@@ -17,6 +17,7 @@ export default class Level1 extends DefaultScene {
     preload(){
       this.mapKey = 'map1'
       this.mapPath = "./assets/tilemaps/level1.json"
+      console.log(this.registry.get('dog'))
       return super.preload(this.mapKey, this.mapPath);
 
     }

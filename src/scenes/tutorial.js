@@ -18,6 +18,8 @@ export default class Tutorial extends DefaultScene {
 
   }
   create(){
+    this.dataStore = {"key": "Value"};
+    
     var text = this.add.text(1500, 400, 'The only controls are\nthe arrows keys\nfor their respective\ndirections.' ,{
       font: "24px monospace",
       fill: "#00ffee",
