@@ -1,7 +1,10 @@
 /*global Phaser*/
 import * as ChangeScene from './InGameChangeScene.js'
-import ObjectGenerator from './ObjGen.js'
 import AllCollision from './collisions.js'
+import {enemyMasterCheck, playerMasterCheck, worldMasterCheck} from './masterCheck.js'
+import loadAssets from './loadAssets.js'
+import loadAnims from './loadAnims.js'
+import loadObjects from './loadObjects.js'
 export default class DefaultScene extends Phaser.Scene {
   constructor () {
     super(Phaser.Scene);
@@ -17,68 +20,8 @@ export default class DefaultScene extends Phaser.Scene {
 
 
   preload (mapkey, mapPath) {
-    // Preload assets
-    ////("Level1")
-    this.load.image("tiles", "./assets/tilemaps/newTileset.png");
-    this.load.tilemapTiledJSON(mapkey, mapPath);
-    this.load.image("crate", "./assets/resized/crate.png");
-    this.load.image("Lcrate", "./assets/resized/Lcrate.png");
-    //different song for tutorial
-    this.load.audio("tutorial","./assets/sounds/Tutorial.wav");
-    this.load.audio("InGame","./assets/sounds/InGame2.wav");
-    this.load.audio("pausefx","./assets/sounds/Kindlich Text.mp3");
-    this.load.audio("splash","./assets/sounds/splash.wav");
-    this.load.audio("doorfx","./assets/sounds/Door.wav");
-    this.load.audio("chefsfx","./assets/sounds/chefsfx.mp3");
-    //Loads potato player sprite
-    //this.load.image("potato", "./assets/potato.png");
-    this.load.spritesheet('Potato', "./assets/resized/pot32.png",{
-      frameHeight: 32,
-      frameWidth: 22
-    });
-    this.load.json('Shape', "./assets/resized/shape.json")
-
-    this.load.spritesheet('cookIdle', "./assets/resized/CookIdle.png",{
-      frameHeight: 60,
-      frameWidth: 63
-    });
-
-    this.load.spritesheet('Cookwalk', "./assets/resized/Cookwalk.png",{
-      frameHeight: 63,
-      frameWidth: 60
-    });
-    this.load.spritesheet('CookAway', "./assets/resized/CookAwayAnimation.png",{
-      frameHeight: 63,
-      frameWidth: 60
-    });
-    this.load.spritesheet('onion', "./assets/resized/Onion_animation2331.png",{
-      frameHeight: 31,
-      frameWidth: 23
-    });
-    this.load.spritesheet('tomato', "./assets/resized/Tomato_animation3245.png",{
-      frameHeight: 45,
-      frameWidth: 32
-    });
-    this.load.spritesheet('door', "./assets/resized/Door_bak.png",{
-      frameHeight: 32,
-      frameWidth: 32
-    });
-
-    //Load cook sprite
-    this.load.image("cook", "./assets/resized/cook64.png");
-
-    //Load spill sprite
-    this.load.image("spill","./assets/resized/spill32.png");
-
-    //Load crack sprites
-    this.load.image("crack", "./assets/resized/crack.png");
-
-    //Load exit box
-    this.load.image("exit", "./assets/resized/Exit Sign_bak.png");
-
-    //Load NPC
-    //this.load.image("onion", "./assets/resized/onion32.png")
-    //this.load.image("tomato", "./assets/resized/tomato32.png")
+    // load assets
+    loadAssets(mapkey,mapPath,this);
   }
 
 
@@ -112,6 +55,7 @@ export default class DefaultScene extends Phaser.Scene {
     this.gameWin = false;
     this.gameLose = false;
     this.door = false;
+    this.checkVel = true;
     const map = this.make.tilemap({ key: mapKey});
     const tileset = map.addTilesetImage("newTileset", "tiles");
     const belowLayer = map.createStaticLayer("Below Player", tileset, 0, 0);
@@ -158,190 +102,24 @@ export default class DefaultScene extends Phaser.Scene {
     this.matter.world.convertTilemapLayer(this.worldLayer);
     this.matter.world.convertTilemapLayer(aboveLayer);
     //this.matter.world.createDebugGraphic();
-    var hitbox = this.cache.json.get("Shape")
+
     //aboveLayer.setDepth(10);
-    const spawnPoint = map.findObject(
+    this.spawnPoint = map.findObject(
       "Objects",
       obj => obj.name === "Spawn Point"
     );
 
-    //player attributes
-    this.player = this.matter.add.sprite(spawnPoint.x, spawnPoint.y, "Potato", "Potato" ,{shape: hitbox.pot32});
-    console.log(this.player)
-    this.player.setFriction(100)
-    this.player.body.label = "Potato";
-    this.player.setDepth(10);
-    this.player.setSize(20,20)
-    console.log(this.player)
+    //Load in animations
+    loadAnims(this);
+    //load all gameObjects and Player object
+    loadObjects(level,map,this);
 
-    console.log(hitbox.pot32)
-    this.checkVel = true;
-    //(this.player.body.label)
-    //("player log")
-    //(this.player);
 
-    //this.matter.add.collider(this.player, this.worldLayer);
-    //(this.player.x, this.player.y)
     this.cursors = this.input.keyboard.createCursorKeys();
     const camera = this.cameras.main;
     camera.startFollow(this.player);
-
     // Constrain the camera so that it isn't allowed to move outside the width/height of tilemap
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    //create all animations
-    this.anims.create({
-        key: "walk",
-        frames: this.anims.generateFrameNumbers('Potato', { start: 0, end: 5}),
-        frameRate: 10,
-        repeat: -1
-      });
-    this.anims.create({
-        key: 'idle',
-        frames: this.anims.generateFrameNumbers('Potato', { start: 0, end: 0}),
-        frameRate: 4,
-        repeat: -1
-    });
-    this.anims.create({
-        key: 'cook_idle',
-        frames: this.anims.generateFrameNumbers('cookIdle', {start:0, end:9}),
-        frameRate: 5,
-        repeat: -1
-    });
-    this.anims.create({
-        key: "cook_walk_right",
-        frames: this.anims.generateFrameNumbers('cookIdle', { start: 0, end: 2}),
-        frameRate: 5,
-        repeat: 1
-      });
-      this.anims.create({
-          key: "cook_Cont_right",
-          frames: this.anims.generateFrameNumbers('Cookwalk', { start: 0, end: 6}),
-          frameRate: 10,
-          repeat: -1
-        });
-      this.anims.create({
-          key: "cook_walk_up",
-          frames: this.anims.generateFrameNumbers('CookAway', { start: 0, end: 5}),
-          frameRate: 5,
-          repeat: -1
-        });
-      this.anims.create({
-          key: "cook_face_right",
-          frames: this.anims.generateFrameNumbers('Cookwalk', { start: 7, end: 13}),
-          frameRate: 10,
-          repeat: 1
-        });
-    this.anims.create({
-        key: 'onion_pushed',
-        frames: this.anims.generateFrameNumbers('onion', { start: 0, end: 5}),
-        frameRate: 10,
-        repeat: -1
-    });
-    this.anims.create({
-        key: 'onion_idle',
-        frames: this.anims.generateFrameNumbers('onion', { start: 0, end: 0}),
-        frameRate: 10,
-        repeat: -1
-    });
-    this.anims.create({
-        key: 'tomato_pushed',
-        frames: this.anims.generateFrameNumbers('tomato', { start: 0, end: 5}),
-        frameRate: 10,
-        repeat: -1
-    });
-    this.anims.create({
-        key: 'tomato_idle',
-        frames: this.anims.generateFrameNumbers('tomato', { start: 0, end: 0}),
-        frameRate: 10,
-        repeat: -1
-    });
-    this.anims.create({
-        key: 'door_open',
-        frames: this.anims.generateFrameNumbers('door', { start: 0, end: 3}),
-        frameRate: 10,
-        repeat: 0
-    });
-
-
-    //win condition
-    this.winGroup = ObjectGenerator(map,'winPoint','door',1, this);
-    this.winGroup.forEach(function(element){
-      element.setStatic(element, true);
-    })
-    //enemy attributes
-    this.enemyGroup = ObjectGenerator(map, 'enemyPoint', 'Cook', 2, this );
-    //(this.enemyGroup);
-    this.enemyGroup.forEach(function(element){
-      element.setBounce(0);
-      element.setFriction(10);
-      element.setSize(32,64,32,32);
-      element.width = 32;
-      element.setDepth(1);
-      element.setDensity(100);
-      element.setFixedRotation();
-      //Initialize with starting velocity
-      element.setVelocityX(Phaser.Math.Between(-1, 1));
-      element.setVelocityY(Phaser.Math.Between(-1, 1));
-    });
-
-    this.crateGroup = ObjectGenerator(map, 'cratePoint','crate',3,this);
-    this.crateGroup.forEach(function(element){
-      element.setBounce(0);
-      element.setFriction(1000);
-      element.setDepth(1);
-      element.setDensity(100);
-      //element.setFixedRotation();
-
-    });
-    this.LcrateGroup = ObjectGenerator(map, 'LCratePoint','Lcrate',4,this);
-    this.LcrateGroup.forEach(function(element){
-      element.setBounce(0);
-      element.setFriction(1000);
-      element.setDepth(1);
-      element.setDensity(100);
-      var ran = Math.random() < 0.6 ? 0 : 90;
-      element.setAngle(ran);
-      //element.setFixedRotation();
-
-    });
-    this.spillGroup = ObjectGenerator(map,'spillPoint','spill',5,this);
-    this.spillGroup.forEach(function(element){
-      console.log(element)
-      element.setStatic(element, true);
-      element.setScale(0.5);
-      element.setSensor(true);
-      element.setSensor(true);
-      var ran = Math.random() < 0.7 ? false : true;
-      if (ran && level != "tutorial") {
-        element.destroy();
-      }
-    });
-    //this.physics.add.collider(this.enemyGroup);
-    this.crackGroup = ObjectGenerator(map,'crackPoint','crack',6, this);
-    this.crackGroup.forEach(function(element){
-      element.setStatic(element, true);
-      element.setScale(0.7);
-      element.setSensor(true);
-      var ran = Math.random() < 0.7 ? false : true;
-      if (ran && level != "tutorial") {
-        element.destroy();
-      }
-    });
-    this.NPCGroup = ObjectGenerator(map, 'NPCPoint', 'onion', 7, this,[hitbox.Onion_Animation, null]);
-    this.NPCGroup.forEach(function(element){
-      var ran = Math.random() < 0.6 ? "onion" : "tomato";
-      element.setTexture(ran);
-      element.setScale(0.7);
-      element.setDensity(100);
-      element.setFriction(100);
-      element.setDepth(1);
-      element.setFixedRotation();
-
-    });
-    this.exit = ObjectGenerator(map, 'exitPoint','exit', 8, this);
-    this.exit.forEach(function(element){
-      element.setSensor(true);
-    });
     AllCollision(this.danger,this);
 
 
@@ -350,7 +128,9 @@ export default class DefaultScene extends Phaser.Scene {
   update (next) {
     // Update the scene
     var musicmuted=this.music.mute; //For muting
-
+    enemyMasterCheck(this);
+    playerMasterCheck(this);
+    worldMasterCheck(this);
 
     if(this.gameWin){
       this.music.stop();
@@ -361,227 +141,15 @@ export default class DefaultScene extends Phaser.Scene {
       this.music.stop();
       this.scene.start('GameOverScene',{scene: this.level});
     }
-    this.NPCCheckSpeed();
-    this.enemyCheckSpeed(); //keeps the enemies moving
-    this.doorCheck(128);
-    //(this.player.body.velocity.x, this.player.body.velocity.y)
-    if (Math.sin(this.time.now) > 0.3){
-      this.enemyView(150);
-    }
-    this.playerSpeedCheck(this.checkVel);
-    this.enemyMaxSpeedCheck();
-    const speed = 1.3;
-    //const prevVelocity = this.player.body.velocity.clone();
-    // Stop any previous movement from the last frame
-    if (this.cursors.left.isUp && this.cursors.right.isUp && this.cursors.up.isUp && this.cursors.down.isUp){
-        this.player.setVelocity(0);
-          this.player.anims.play('idle', true);
-          this.player.angle = 0;
-    }
 
-    // Horizontal move4ent
-    if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-speed);
-      this.player.anims.play('walk', true);
-      this.player.flipX = true;
-      this.player.angle = 0;
-      this.player.setSize(22,32,32,32);
-    } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(speed);
-      this.player.anims.play('walk', true);
-      this.player.flipX = false;
-      this.player.angle = 0;
-      this.player.setSize(22,32,32,32);
-    }else{
-      this.player.setVelocityX(0);
-    }
 
-    // Vertical movement
-    if (this.cursors.up.isDown) {
-      this.player.setVelocityY(-speed);
-      this.player.anims.play('walk', true);
-      this.player.angle = 90;
-      this.player.setSize(32,22,32,32);
-    } else if (this.cursors.down.isDown) {
-      this.player.setVelocityY(speed);
-      this.player.anims.play('walk', true);
-      this.player.angle = 270;
-      this.player.setSize(32,22,32,32);
-    }else{
-      this.player.setVelocityY(0);
-    }
 
 
     // Normalize and scale the velocity so that player can't move faster along a diagonal
     //this.player.normalize().scale(speed);
-  }
-
-    import_test(){
-      //("import successful")
     }
-    enemyView(distance){
-      var enemies = this.enemyGroup;
-      for ( var i = 0; i < enemies.length; i++){
-        if (Phaser.Math.Distance.Between(this.player.x, this.player.y, enemies[i].x, enemies[i].y ) <= distance){
-          this.enemyChase(enemies[i]);
-          this.chase = true;
-          //chefsfx will lopp while in range
-          if (this.chefsfx.isPlaying == false){
-            this.chefsfx.play({
-              volume:.3,
-              loop: false
-            });
-          }
-          //chefsfx will loop while in range
-
-        }else {
-          this.chase = false;
-        }
-      }
-    }
-
-    doorCheck(distance){
-      var win = this.winGroup;
-      if (this.door == false){
-        for ( var i = 0; i < win.length; i++){
-          let dist = Phaser.Math.Distance.Between(this.player.x, this.player.y, win[i].x, win[i].y )
-          if (dist <= distance){
-            ////('detected')
-            win[i].anims.play('door_open')
-            //doorfx
-            this.doorfx.play({
-              volume:.7,
-              loop:false
-            });
-            this.door = true;
-          }
-        }
-      }
-
-  }
-
-   setEnemyFrame(enemy){
-     //console.log("cook",enemy.body.velocity.x,enemy.body.velocity.y)
-      if (enemy.body.velocity.x < 0 && Math.abs(enemy.body.velocity.x) > Math.abs(enemy.body.velocity.y)){
-        //enemy.anims.play('cook_walk_right')
-        enemy.anims.play('cook_Cont_right')
-        enemy.flipX = false;
-      } else if(enemy.body.velocity.x > 0 && Math.abs(enemy.body.velocity.x) > Math.abs(enemy.body.velocity.y)){
-        //enemy.anims.play('cook_walk_right')
-        enemy.anims.play('cook_Cont_right')
-        enemy.flipX = true;
-      }
-      else if (enemy.body.velocity.y < 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
-        enemy.anims.play('cook_walk_up')
-      } else if(enemy.body.velocity.y > 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
-        enemy.anims.play('cook_idle')
-      }
-      //console.log(enemy.anims)
-
-  }
-  enemyChase(enemy){
-    var  i = enemy
-    function degrees(radians) {
-      return radians * 180 / Math.PI;
-    }
-    var angleBetween = Phaser.Math.Angle.Between(i.x, i.y, this.player.x, this.player.y);
-    ////(degrees(angleBetween))
-    i.setVelocityX(Math.cos(angleBetween) * 1.5);
-    i.setVelocityY(Math.sin(angleBetween) * 1.5);
-    this.setEnemyFrame(i);
-
-  }
-
-    enemyCheckSpeed(){
-      var enemies = this.enemyGroup;
-      ////(enemies[0].body.velocity);
-      if (!this.chase){
-        for ( var i = 0; i < enemies.length; i++){
-          if (Math.abs(enemies[i].body.velocity.y) < 0.05){
-            enemies[i].setVelocityY(0);
-          }
-          if (Math.abs(enemies[i].body.velocity.x) < 0.003){
-            enemies[i].setVelocityX(0);
-          }
-          if (enemies[i].body.velocity.x == 0 || enemies[i].body.velocity.y == 0){
-            enemies[i].setVelocityX(Phaser.Math.Between(-1.5, 1.5));
-            enemies[i].setVelocityY(Phaser.Math.Between(-1.5, 1.5));
-
-          }else{
-            enemies[i].setVelocityX(enemies[i].body.velocity.x);
-            enemies[i].setVelocityY(enemies[i].body.velocity.y);
-
-          }
-          this.setEnemyFrame(enemies[i]);
-        }
-      }
-
-    }
-    NPCCheckSpeed(){
-      var NPCs = this.NPCGroup;
-      for ( var i = 0; i < NPCs.length; i++){
-        var velXFLT = NPCs[i].body.velocity.x
-        var velX = velXFLT.toPrecision(2)
-        var velYFLT = NPCs[i].body.velocity.y
-        var velY = velYFLT.toPrecision(2)
-
-        if (Math.abs(velX) < 0.001){
-          velX = 0;
-        }
-        if (Math.abs(velY) < 0.00045){
-          velY = 0;
-        }
-        if (velX == 0 && velY == 0){
-          NPCs[i].angle = 0;
-          if (String(NPCs[i].texture.key) === "onion"){
-            NPCs[i].anims.play('onion_idle', true);
-            NPCs[i].flipX = false;
-          }else {
-            NPCs[i].anims.play('tomato_idle', true);
-            NPCs[i].flipX = false;
-          }
-
-        }
-        else if (velX > 0) {
-          if (String(NPCs[i].texture.key) === "onion"){
-            NPCs[i].anims.play('onion_pushed', true);
-          }else {
-            NPCs[i].anims.play('tomato_pushed', true);
-          }
-        }
-        else if (velX < 0) {
-          if (String(NPCs[i].texture.key) === "onion"){
-            NPCs[i].anims.play('onion_pushed', true);
-            NPCs[i].flipX = true;
-          }else {
-            NPCs[i].anims.play('tomato_pushed', true);
-            NPCs[i].flipX = true;
-          }
-        }
-        else if (velY < 0) {
-          if (String(NPCs[i].texture.key) === "onion"){
-            NPCs[i].anims.play('onion_pushed', true);
-            NPCs[i].angle = 90;
-          }else {
-            NPCs[i].anims.play('tomato_pushed', true);
-            NPCs[i].angle = 90;
-          }
-        }
-        else if (velY > 0) {
-          if (String(NPCs[i].texture.key) === "onion"){
-            NPCs[i].anims.play('onion_pushed', true);
-            NPCs[i].angle = 270;
-          }else {
-            NPCs[i].anims.play('tomato_pushed', true);
-            NPCs[i].angle = 270;
-          }
-        }
-
-      }
-    }
-
     endScene(player, winPoint){
-      //console.log("player",player)
+      //
       if (player.label == "Potato"){
         this.gameWin = true
       }
@@ -590,57 +158,10 @@ export default class DefaultScene extends Phaser.Scene {
     gameOver(player, winPoint){
       this.gameLose = true;
     }
-    playerSpeedCheck(bool){
 
-      this.player.body.inertia = 20
-      //console.log(this.player.body.position)
-      //console.log(this.player.body.position.x, this.player.body.position.y)
-      if (this.player.body.position.y < 0 || this.player.body.position.x < 0){
-        this.player.setPosition(this.player.body.positionPrev.x, this.player.body.positionPrev.y)
-        this.player.setDepth(10);
-        //console.log("error")
-        //console.log("returned",this.player.body.position.x, this.player.body.position.y)
-      }
-      if (bool){
-        if (this.player.body.velocity.x > 1.5){
-          this.player.setVelocityX(1);
-        }else if (this.player.body.velocity.x < -1.5){
-          this.player.setVelocityX(-1);
-        }
-        if (this.player.body.velocity.y > 1.5){
-          this.player.setVelocityY(1);
-        }else if (this.player.body.velocity.y < -1.5){
-         this.player.setVelocityY(-1);
-        }
-      }
 
-    }
-    enemyMaxSpeedCheck(){
-      var enemies = this.enemyGroup;
-      ////(enemies[0].body.velocity);
-      for ( var i = 0; i < enemies.length; i++){
-        enemies[i].setAngularVelocity(0);
-        //console.log(enemies[i].body.velocity.x,enemies[i].body.velocity.y)
-        if (enemies[i].body.velocity.x > 1.5){
-          enemies[i].setVelocityX(1);
-
-        }else if (enemies[i].body.velocity.x < -1.5){
-          enemies[i].setVelocityX(-1);
-        }
-        if (enemies[i].body.velocity.y > 1.5){
-          enemies[i].setVelocityY(1);
-        }else if (enemies[i].body.velocity.y < -1.5){
-         enemies[i].setVelocityY(-1);
-        }
-        if (enemies[i].body.velocity.y == NaN && enemies[i].body.velocity.x == NaN){
-          enemies[i].prevPosition();
-        }
-        this.setEnemyFrame(enemies[i]);
-      }
-
-    }
     slip(s1,s2){
-      console.log(s1,s2)
+
       //("slip")
       ////(s2.position.x,s2.position.y)
       var initialTime = 0.5
@@ -661,7 +182,7 @@ export default class DefaultScene extends Phaser.Scene {
       var x = s1.position.x + s1.velocity.x * 10;
       var y = s1.position.y + s1.velocity.y * 10
       s1.gameObject.setPosition(x,y)
-      console.log(x,  y)
+
       if (s1.label == "Lcrate"){
         s1.gameObject.setPosition(x,y)
         return
@@ -674,10 +195,11 @@ export default class DefaultScene extends Phaser.Scene {
           loop:false
         });
         s1.gameObject.setPosition(x,y)
-        //console.log(s1.position)
+        //
 
       }
-
-
+    }
+    import_test(){
+      //for stability
     }
   }
