@@ -21,7 +21,26 @@ function enemyMasterCheck(that){
         }
       }
     }
+  function setAngryFrame(enemy){
+    if (enemy.body.velocity.x < 0 && Math.abs(enemy.body.velocity.x) > Math.abs(enemy.body.velocity.y)){
+      //enemy.anims.play('cook_walk_right')
+      enemy.anims.play('angry_chase')
+      enemy.flipX = false;
+    } else if(enemy.body.velocity.x > 0 && Math.abs(enemy.body.velocity.x) > Math.abs(enemy.body.velocity.y)){
+      //enemy.anims.play('cook_walk_right')
+      enemy.anims.play('angry_chase')
+      enemy.flipX = true;
+    }
+    else if (enemy.body.velocity.y < 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
+      enemy.anims.play('angry_away')
+    } else if(enemy.body.velocity.y > 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
+      enemy.anims.play('angry_idle')
+    }
+  }
   function setEnemyFrame(enemy){
+    for (let key in enemy.anims.currentAnim){
+      //console.log(enemy.anims.currentAnimkey)
+    }
    //console.log("cook",enemy.body.velocity.x,enemy.body.velocity.y)
     if (enemy.body.velocity.x < 0 && Math.abs(enemy.body.velocity.x) > Math.abs(enemy.body.velocity.y)){
       //enemy.anims.play('cook_walk_right')
@@ -49,13 +68,13 @@ function enemyMasterCheck(that){
     ////(degrees(angleBetween))
     i.setVelocityX(Math.cos(angleBetween) * 1.5);
     i.setVelocityY(Math.sin(angleBetween) * 1.5);
-    setEnemyFrame(i);
+    setAngryFrame(i);
 
   }
   function enemyCheckSpeed(){
       var enemies = that.enemyGroup;
       ////(enemies[0].body.velocity);
-      if (!that.chase){
+
         for ( var i = 0; i < enemies.length; i++){
           if (Math.abs(enemies[i].body.velocity.y) < 0.05){
             enemies[i].setVelocityY(0);
@@ -72,8 +91,9 @@ function enemyMasterCheck(that){
             enemies[i].setVelocityY(enemies[i].body.velocity.y);
 
           }
-          setEnemyFrame(enemies[i]);
-        }
+          if (!that.chase){
+            setEnemyFrame(enemies[i]);
+          }
       }
    }
    function enemyMaxSpeedCheck(){
@@ -96,7 +116,7 @@ function enemyMasterCheck(that){
         if (enemies[i].body.velocity.y == NaN && enemies[i].body.velocity.x == NaN){
           enemies[i].prevPosition();
         }
-        setEnemyFrame(enemies[i]);
+        //setEnemyFrame(enemies[i]);
       }
 
    }

@@ -24,7 +24,10 @@ function loadAssets(mapkey, mapPath, that){
     frameHeight: 60,
     frameWidth: 63
   });
-
+  that.load.spritesheet('Angry', "./assets/resized/AngeryGrid.png",{
+    frameHeight: 63,
+    frameWidth: 60
+  })
   that.load.spritesheet('Cookwalk', "./assets/resized/Cookwalk.png",{
     frameHeight: 63,
     frameWidth: 60

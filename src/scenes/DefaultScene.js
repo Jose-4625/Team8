@@ -116,10 +116,10 @@ export default class DefaultScene extends Phaser.Scene {
 
 
     this.cursors = this.input.keyboard.createCursorKeys();
-    const camera = this.cameras.main;
-    camera.startFollow(this.player);
+    this.camera = this.cameras.main;
+    this.camera.startFollow(this.player);
     // Constrain the camera so that it isn't allowed to move outside the width/height of tilemap
-    camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     AllCollision(this.danger,this);
 
 
@@ -179,8 +179,8 @@ export default class DefaultScene extends Phaser.Scene {
         }
       }
 
-      var x = s1.position.x + s1.velocity.x * 3;
-      var y = s1.position.y + s1.velocity.y * 3
+      var x = s1.position.x + s1.velocity.x * 10;
+      var y = s1.position.y + s1.velocity.y * 10
       s1.gameObject.setPosition(x,y)
 
       if (s1.label == "Lcrate"){
@@ -195,6 +195,7 @@ export default class DefaultScene extends Phaser.Scene {
           loop:false
         });
         s1.gameObject.setPosition(x,y)
+        this.cameras.main.shake(500, 0.01)
         //
 
       }

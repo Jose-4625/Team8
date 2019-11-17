@@ -28,7 +28,7 @@ function loadAnims(that){
     that.anims.create({
         key: "cook_Cont_right",
         frames: that.anims.generateFrameNumbers('Cookwalk', { start: 0, end: 6}),
-        frameRate: 5,
+        frameRate: 20,
         repeat: -1
       });
     that.anims.create({
@@ -73,4 +73,22 @@ function loadAnims(that){
       frameRate: 10,
       repeat: 0
   });
+  that.anims.create({
+    key: 'angry_chase',
+    frames: that.anims.generateFrameNumbers('Angry', {start:10, end:16}),
+    frameRate: 5,
+    repeat: -1
+  })
+  that.anims.create({
+    key: 'angry_idle',
+    frames: that.anims.generateFrameNumbers('Angry', {start:0, end:9}),
+    frameRate: 5,
+    repeat: -1
+  })
+  that.anims.create({
+    key: 'angry_away',
+    frames: that.anims.generateFrameNumbers('Angry', {frames:[27,28,29,37,38,39]}),
+    frameRate: 5,
+    repeat: -1
+  })
 }
