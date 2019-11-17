@@ -2,7 +2,9 @@ import ObjectGenerator from './ObjGen.js'
 export default loadObjects
 
 function loadObjects(level,map,that){
-  that.hitbox = that.cache.json.get("Shape")
+  that.hitbox = that.cache.json.get("Shape");
+  that.voidPart = that.add.particles('void').setDepth(15);
+  that.waterPart = that.add.particles('water').setDepth(15);
 
   //player attributes
   that.player = that.matter.add.sprite(that.spawnPoint.x, that.spawnPoint.y, "Potato", "Potato" ,{shape: that.hitbox.pot32});
@@ -24,6 +26,7 @@ function loadObjects(level,map,that){
     element.setFriction(10);
     element.setSize(32,64,32,32);
     element.width = 32;
+    element.setTexture('cook')
     element.setDepth(1);
     element.setDensity(100);
     element.setFixedRotation();
@@ -72,8 +75,29 @@ function loadObjects(level,map,that){
     element.setSensor(true);
     var ran = Math.random() < 0.7 ? false : true;
     if (ran && level != "tutorial") {
+      element.isActive = false;
       element.destroy();
+    }else{
+      element.isActive = true;
     }
+    if (element.isActive){
+      that.voidPart.createEmitter({
+        alpha: { start: 1, end: 0 },
+          scale: { start: 0.5, end: 1.5 },
+          //tint: { start: 0xff945e, end: 0xff945e },
+          speed: 10,
+          accelerationY: -300,
+          angle: { min: -75, max: -95 },
+          rotate: { min: -180, max: 180 },
+          //lifespan: { min: 1000, max: 1100 },
+          blendMode: 'SCREEN',
+          frequency: 110,
+          maxParticles: 0,
+          x: element.body.position.x,
+          y: element.body.position.y
+      })
+    }
+
   });
   that.NPCGroup = ObjectGenerator(map, 'NPCPoint', 'onion', 7, that,[that.hitbox.Onion_Animation, null]);
   that.NPCGroup.forEach(function(element){

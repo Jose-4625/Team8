@@ -22,6 +22,23 @@ function enemyMasterCheck(that){
       }
     }
   function setAngryFrame(enemy){
+    that.voidPart.createEmitter({
+      alpha: { start: 0.5, end: 0 },
+        scale: { start: 0.5, end: 2.5 },
+        //tint: { start: 0xff945e, end: 0xff945e },
+        speed: 10,
+        //gravityX:500,
+        gravityY:300,
+        accelerationY: -300,
+        angle: { min: 0, max: -180 },
+        rotate: { min: -180, max: 180 },
+        lifespan: { min: 1000, max: 1100 },
+        blendMode: 'ADD',
+        frequency: 110,
+        maxParticles: 1,
+        x: enemy.body.position.x,
+        y: enemy.body.position.y
+    })
     if (enemy.body.velocity.x < 0 && Math.abs(enemy.body.velocity.x) > Math.abs(enemy.body.velocity.y)){
       //enemy.anims.play('cook_walk_right')
       enemy.anims.play('angry_chase')

@@ -60,5 +60,7 @@ function loadAssets(mapkey, mapPath, that){
 
   //Load exit box
   that.load.image("exit", "./assets/resized/Exit Sign_bak.png");
+  that.load.image("water","./assets/resized/waterParticle.png");
+  that.load.image("void", "./assets/resized/voidParticle.png")
 
 }

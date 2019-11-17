@@ -70,7 +70,7 @@ export default class DefaultScene extends Phaser.Scene {
         fill: "#ffffff",
         padding: { x: 20, y: 10 },
         backgroundColor: "#000000"
-      }).setDepth(10)
+      }).setDepth(30)
       .setScrollFactor(0);
       this.timedEvent = this.time.addEvent({ delay: 1000, callback: countDown, callbackScope: this, loop: true });
       function formatTime(seconds){
@@ -194,6 +194,23 @@ export default class DefaultScene extends Phaser.Scene {
           volume:.3,
           loop:false
         });
+        this.waterPart.createEmitter({
+          alpha: { start: 1, end: 0 },
+            scale: { start: 0.5, end: 5 },
+            //tint: { start: 0xff945e, end: 0xff945e },
+            speed: 10,
+            //gravityX:500,
+            gravityY:300,
+            accelerationY: -300,
+            angle: { min: 0, max: -180 },
+            rotate: { min: -180, max: 180 },
+            lifespan: { min: 1000, max: 1100 },
+            blendMode: 'SCREEN',
+            frequency: 110,
+            maxParticles: 1,
+            x: s1.position.x,
+            y: s1.position.y
+        })
         s1.gameObject.setPosition(x,y)
         this.cameras.main.shake(500, 0.01)
         //
