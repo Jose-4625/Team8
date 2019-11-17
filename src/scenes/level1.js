@@ -22,7 +22,7 @@ export default class Level1 extends DefaultScene {
 
     }
     create(){
-      return super.create(this.mapKey, true);
+      return super.create(this.mapKey, true, 35);
 
 
     }

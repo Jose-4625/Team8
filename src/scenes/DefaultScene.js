@@ -25,7 +25,7 @@ export default class DefaultScene extends Phaser.Scene {
   }
 
 
-  create(mapKey,danger) {
+  create(mapKey,danger,time = 30) {
     this.danger = danger;
     this.chase = true;
     //Add change scene event listeners
@@ -64,7 +64,7 @@ export default class DefaultScene extends Phaser.Scene {
 
     //create game timer
     if (danger){
-      this.initialTime = 30
+      this.initialTime = time
       this.text = this.add.text(16, 16, 'Countdown: ' + formatTime(this.initialTime),{
         font: "24px monospace",
         fill: "#ffffff",

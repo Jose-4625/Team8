@@ -13,7 +13,7 @@ function AllCollision(danger,that){
               break;
             case 'spill':
               that.slip(pair.bodyA, pair.bodyB);
-              console.log('slip')
+              //console.log('slip')
               break;
             case 'crack':
               that.gameOver();
@@ -26,7 +26,7 @@ function AllCollision(danger,that){
           }
           if(pair.bodyB.parent.label == 'spill'){
             that.slip(pair.bodyA.parent, pair.bodyB);
-            console.log('slip')
+            //console.log('slip')
           }else if(pair.bodyB.parent.label == 'crack'){
             that.gameOver();
 
@@ -38,7 +38,7 @@ function AllCollision(danger,that){
               break;
             case 'spill':
               that.slip(pair.bodyA, pair.bodyB);
-              console.log('slip')
+              //console.log('slip')
               break;
             case 'crack':
               that.gameOver();
@@ -61,7 +61,7 @@ function AllCollision(danger,that){
               that.gameOver();
               break;
             case 'door':
-              console.log("here")
+              //console.log("here")
               that.endScene(pair.bodyA.parent, pair.bodyB);
             default:
               break;
@@ -69,7 +69,7 @@ function AllCollision(danger,that){
           }
           if(pair.bodyB.parent.label == 'spill'){
             that.slip(pair.bodyA.parent, pair.bodyB);
-            console.log('slip')
+            //console.log('slip')
           }else if(pair.bodyB.parent.label == 'crack'){
             that.gameOver();
 
@@ -82,7 +82,7 @@ function AllCollision(danger,that){
               break;
             case 'spill':
               that.slip(pair.bodyB.parent, pair.bodyA);
-              console.log('slip')
+              //console.log('slip')
               break;
             case 'crack':
               that.gameOver();
