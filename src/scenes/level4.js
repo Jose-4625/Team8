@@ -16,7 +16,7 @@ export default class Tutorial extends DefaultScene {
 
   }
   create(){
-    return super.create(this.mapKey, 'WinScene', true, 40);
+    return super.create(this.mapKey, true, 40);
 
 
   }

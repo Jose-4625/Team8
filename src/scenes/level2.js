@@ -17,7 +17,7 @@ export default class Tutorial extends DefaultScene {
 
   }
   create(){
-    return super.create(this.mapKey, 'level2', true);
+    return super.create(this.mapKey, true);
 
 
   }
