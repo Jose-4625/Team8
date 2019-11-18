@@ -12,6 +12,9 @@ export default class BootScene extends Phaser.Scene {
     //Declare variables for center of the scene
     this.centerX = this.cameras.main.width/2;
     this.centerY=this.cameras.main.height/2;
+
+    //Load background
+    this.load.image("winScreen", "./assets/fullSized/Win Screen.png")
   }
 
   create() {
@@ -31,7 +34,8 @@ export default class BootScene extends Phaser.Scene {
       }
     });
 
-    this.cameras.main.setBackgroundColor(0x008000)
+    //Add background
+    this.add.sprite(400, 280, 'winScreen').setScale(0.3);
 
     var text = 'You Win!'
     var text2  = 'Press Space to play again.'
