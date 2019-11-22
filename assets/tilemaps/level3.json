@@ -1,4 +1,5 @@
-{ "height":40,
+{ "compressionlevel":0,
+ "height":40,
  "infinite":false,
  "layers":[
         {
@@ -797,10 +798,22 @@
                  "width":0,
                  "x":960,
                  "y":1051
+                }, 
+                {
+                 "height":0,
+                 "id":430,
+                 "name":"enemyPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":768,
+                 "y":1147
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -817,7 +830,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":430,
+ "nextobjectid":431,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -826,7 +839,7 @@
          "value":"clamped"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.2.4",
+ "tiledversion":"1.3.1",
  "tileheight":32,
  "tilesets":[
         {

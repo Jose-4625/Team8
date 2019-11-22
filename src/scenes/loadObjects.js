@@ -17,6 +17,11 @@ function loadObjects(level,map,that){
   that.winGroup = ObjectGenerator(map,'winPoint','door',1, that);
   that.winGroup.forEach(function(element){
     element.setStatic(element, true);
+    console.log(that.level)
+    console.log(element.angle)
+    if ( that.level == 'level2'){
+      element.setAngle(-90)
+    }
   })
   //enemy attributes
   that.enemyGroup = ObjectGenerator(map, 'enemyPoint', 'Cook', 2, that );
@@ -31,8 +36,14 @@ function loadObjects(level,map,that){
     element.setDensity(100);
     element.setFixedRotation();
     //Initialize with starting velocity
-    element.setVelocityX(Phaser.Math.Between(-1, 1));
-    element.setVelocityY(Phaser.Math.Between(-1, 1));
+    element.setVelocityX(Phaser.Math.Between(-1.5, 1.5));
+    element.setVelocityY(Phaser.Math.Between(-1.5, 1.5));
+    var ran = Math.random() < 0.5 ? false : true;
+    if (ran){
+      element.setScale(0.5)
+    }else{
+
+    }
   });
 
   that.crateGroup = ObjectGenerator(map, 'cratePoint','crate',3,that);
@@ -108,6 +119,9 @@ function loadObjects(level,map,that){
     element.setFriction(100);
     element.setDepth(1);
     element.setFixedRotation();
+    element.setVelocityX(Phaser.Math.Between(-1.5, 1.5));
+    element.setVelocityY(Phaser.Math.Between(-0.1, 0.1));
+
 
   });
   that.exit = ObjectGenerator(map, 'exitPoint','exit', 8, that);

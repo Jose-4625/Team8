@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="451">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="452">
  <properties>
   <property name="edges" value="clamped"/>
  </properties>
@@ -698,6 +698,9 @@
    <point/>
   </object>
   <object id="450" name="exitPoint" x="708" y="992">
+   <point/>
+  </object>
+  <object id="451" name="enemyPoint" x="544" y="1119.33">
    <point/>
   </object>
  </objectgroup>
