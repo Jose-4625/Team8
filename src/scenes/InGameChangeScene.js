@@ -16,6 +16,8 @@ function addSceneEventListeners(that, scene){
         that.scene.run('Options', {source:scene});
       }
   )
+  //Comment out for now
+  /*
   that.input.keyboard.on(
     "keydown_M",
       function() {
@@ -29,12 +31,5 @@ function addSceneEventListeners(that, scene){
 
       }
   )
-  that.input.keyboard.on(
-    "keydown_ENTER",
-      function() {
-        that.scene.stop();
-        that.music.stop();
-        that.scene.start('Boot');
-      }
-  )
+  */
 }

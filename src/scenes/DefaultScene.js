@@ -127,7 +127,9 @@ export default class DefaultScene extends Phaser.Scene {
 
   update (next) {
     // Update the scene
+    /*
     var musicmuted=this.music.mute; //For muting
+    */
     enemyMasterCheck(this);
     playerMasterCheck(this);
     worldMasterCheck(this);

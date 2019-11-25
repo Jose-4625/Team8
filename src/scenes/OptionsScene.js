@@ -1,5 +1,5 @@
 /*global Phaser*/
-import * as ChangeScene from './ChangeScene.js';
+import * as ChangeScene from './OptionsChangeScene.js';
 export default class OptionsScene extends Phaser.Scene
 {
   constructor()
