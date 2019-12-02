@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bf51d48d-fdf0-4971-815e-0b9b242e8bad" name="Default Changelist" comment="" />
+    <list default="true" id="bf51d48d-fdf0-4971-815e-0b9b242e8bad" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scenes/tutorial.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scenes/tutorial.js" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +31,13 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
   </component>
   <component name="ProjectId" id="1SRoNbDnF5wDomKBfTRTeEDQYTh" />
   <component name="PropertiesComponent">
@@ -65,6 +75,8 @@
       <workItem from="1571535732493" duration="1252000" />
       <workItem from="1572211105840" duration="483000" />
       <workItem from="1572211594585" duration="8813000" />
+      <workItem from="1572265430894" duration="570000" />
+      <workItem from="1575242780080" duration="1959000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,5 @@
 /*global Phaser*/
-import DefaultScene from './DefaultScene.js'
+import DefaultScene from './DefaultScene.js';
 
 export default class Tutorial extends DefaultScene {
   constructor () {
@@ -12,8 +12,8 @@ export default class Tutorial extends DefaultScene {
   }
   preload(){
     //this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
-    this.mapKey = 'tutorial'
-    this.mapPath = "./assets/tilemaps/tutorial.json"
+    this.mapKey = 'tutorial';
+    this.mapPath = "./assets/tilemaps/tutorial.json";
     return super.preload(this.mapKey, this.mapPath);
 
   }
@@ -30,8 +30,13 @@ export default class Tutorial extends DefaultScene {
       fill: "#00ffee",
       padding: { x: 20, y: 20 }
     });
+    var text = this.add.text(1500, 700, '(Varies in Size)' ,{
+      font: "12px monospace",
+      fill: "#00ffee",
+      padding: { x: 20, y: 20 }
+    });
     var text = this.add.text(1500, 720, 'will chase you-- Do not touch --bad for produce' ,{
-      font: "14px monospace",
+      font: "12px monospace",
       fill: "#00ffee",
       padding: { x: 20, y: 20 }
     });
