@@ -11,7 +11,8 @@ function enemyMasterCheck(that){
           if (that.chefsfx.isPlaying == false){
             that.chefsfx.play({
               volume:.3,
-              loop: false
+              loop: false,
+              mute:that.registry.get("sfxmuted")
             });
           }
           //chefsfx will loop while in range

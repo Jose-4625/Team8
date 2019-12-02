@@ -21,6 +21,7 @@ export default class GameOverScene extends Phaser.Scene
     this.load.audio('End','./assets/sounds/End.wav');
     this.load.image('fries','./assets/fullSized/Fries.png');
     this.load.image("gameOverText", "./assets/fullSized/Game Over Text.png");
+    this.load.audio("pausefx","./assets/sounds/Kindlich Text.mp3");
 
     //Declare variables for center of the scene
     this.centerX = this.cameras.main.width/2;
@@ -32,12 +33,15 @@ export default class GameOverScene extends Phaser.Scene
     //Add change scene event listeners
     ChangeScene.addSceneEventListeners(this, this.Source);
 
+    //Add sound effects
+    this.pausefx=this.sound.add('pausefx');
     //Add music
     this.music = this.sound.add('End')
     this.music.play
     ({
       volume:.3,
-      loop:true
+      loop:true,
+      mute:this.registry.get("musicmuted")
     });
 
     //Add title

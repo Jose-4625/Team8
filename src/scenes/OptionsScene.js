@@ -9,8 +9,7 @@ export default class OptionsScene extends Phaser.Scene
   init(data)
   {
     this.source = data.source
-    console.log(this.source)
-    console.log(this.registry.get('dog'))
+
   }
 
   preload()
@@ -36,7 +35,8 @@ export default class OptionsScene extends Phaser.Scene
     this.music.play
     ({
       volume:.3,
-      loop:true
+      loop:true,
+      mute:this.registry.get("musicmuted")
     });
     this.pausefx = this.sound.add('pausefx');
 
@@ -54,11 +54,11 @@ export default class OptionsScene extends Phaser.Scene
 
     //Display text
     var text1 = 'Enter: Return to game\n' +
-                'F11: Full screen';
+                'M to mute Music (Exit for change to take effect)';
     var text2 = 'ESC: Main menu\n' +
-                'R: Restart level';
-    this.spellOutText(100, 285, 550, text1, 40, 20, '#000000', 'Neucha');
-    this.spellOutText(450, 285, 550, text2, 40, 20, '#000000', 'Neucha');
+                'S to mute Sound';
+    this.spellOutText(100, 285, 290, text1, 30, 20, '#000000', 'Neucha');
+    this.spellOutText(450, 285, 200, text2, 30, 20, '#000000', 'Neucha');
   }
 
   //Gradually spells text out

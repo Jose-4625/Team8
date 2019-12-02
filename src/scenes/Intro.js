@@ -2,7 +2,7 @@
 import * as ChangeScene from './WinChangeScene.js';
 export default class BootScene extends Phaser.Scene {
   constructor() {
-    super("WinScene");
+    super("Intro");
   }
 
   preload(){
@@ -18,6 +18,9 @@ export default class BootScene extends Phaser.Scene {
   }
 
   create() {
+    //Generate sound mutability
+    this.registry.set({"sfxmuted":false});
+    this.registry.set({"musicmuted":false});
     //Add change scene event listeners
     ChangeScene.addSceneEventListeners(this,'level1')
 
@@ -25,7 +28,8 @@ export default class BootScene extends Phaser.Scene {
     this.music=this.sound.add('victory')
     this.music.play({
       volume:.3,
-      loop:false
+      loop:false,
+      mute:this.registry.get("musicmuted")
     });
     //Create the scenes
     WebFont.load({
@@ -48,62 +52,7 @@ export default class BootScene extends Phaser.Scene {
         "",
         "",
         "",
-        "Fried or Flight",
-        "",
-        "An Appeeling Tots Production",
-        "",
-        "Producer",
-        " Dr. Paul Toprac",
-        "Associate Producer",
-        " Jason Harron",
-        "",
-        "Lead Designer",
-        "Jose Torres",
-        "",
-        "Designers",
-        "Angelia Wu",
-        "Carlos Canizales",
-        "",
-        "Level Designer",
-        "Jose Torres",
-        "",
-        "Programming",
-        "",
-        "Lead Programmer",
-        "Jose Torres",
-        "",
-        "Graphics Programming",
-        "Angelia Wu",
-        "",
-        "Music/Sound Programming",
-        "Carlos Canizales",
-        "",
-        "Graphics",
-        "",
-        "Art Director",
-        "Angelia Wu",
-        "",
-        "Lead Artist",
-        "Angelia Wu",
-        "",
-        "Graphics/Artwork",
-        "Angelia Wu",
-        "",
-        "Additional Graphics/Artwork",
-        "Jose Torres",
-        "",
-        "Animation",
-        "Angelia Wu",
-        "Jose Torres",
-        "",
-        "Music and Sound",
-        "",
-        "Composer",
-        "Carlos Canizales",
-        "",
-        "Sound effects",
-        "",
-        ""
+        "Add Flavor text here"
     ];
 
     var graphics = this.make.graphics();
@@ -127,10 +76,8 @@ export default class BootScene extends Phaser.Scene {
     });
 
     //Display text
-    var text1 = 'Congratulations!'
-    var text2 = "You've escaped!"
+    var text1 = 'Press Space to Skip'
     this.spellOutText(275, 0, 300, text1, 30, 250, '#000000', 'Neucha');
-    this.spellOutText(275,40, 300, text2,30,250,'#000000','Neucha');
 
   }
 
@@ -189,4 +136,6 @@ export default class BootScene extends Phaser.Scene {
       }
     }
   }
-}
+
+
+  }

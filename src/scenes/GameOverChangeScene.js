@@ -17,7 +17,8 @@ function addSceneEventListeners(that, scene){
         that.scene.stop(scene);
         that.pausefx.play({
           volume:.3,
-          loop:false
+          loop:false,
+          mute:that.registry.get("sfxmuted")
         });
         that.scene.start('Boot');
       }

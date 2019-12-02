@@ -13,8 +13,6 @@ export default class DefaultScene extends Phaser.Scene {
   init (data) {
     // Initialization code goes here
     this.level = data.level
-    this.registry.set({"dog":"woof"})
-
 
   }
 
@@ -36,13 +34,15 @@ export default class DefaultScene extends Phaser.Scene {
       this.music=this.sound.add('tutorial')
       this.music.play({
         volume:.3,
-        loop: true
+        loop: true,
+        mute:this.registry.get("musicmuted")
       });
     } else{
     this.music= this.sound.add('InGame');
     this.music.play({
       volume:.3,
-      loop:true
+      loop:true,
+      mute:this.registry.get("musicmuted")
     });}
     //different song for tutorial
 
@@ -194,7 +194,8 @@ export default class DefaultScene extends Phaser.Scene {
       }else{
         this.splashfx.play({
           volume:.3,
-          loop:false
+          loop:false,
+          mute:this.registry.get("sfxmuted")
         });
         this.waterPart.createEmitter({
           alpha: { start: 1, end: 0 },

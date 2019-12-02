@@ -61,7 +61,8 @@ export default class BootScene extends Phaser.Scene
     this.music.play
     ({
       volume:.3,
-      loop:true
+      loop:true,
+      mute:this.registry.get("musicmuted")
     });
 
     //Add SFX
@@ -120,7 +121,8 @@ export default class BootScene extends Phaser.Scene
       this.select.play
       ({
         volume:.3,
-        loop: false
+        loop: false,
+        mute:this.registry.get("sfxmuted")
       });
     }, this
   );
@@ -142,7 +144,8 @@ export default class BootScene extends Phaser.Scene
       this.select.play
       ({
         volume:.3,
-        loop: false
+        loop: false,
+        mute:this.registry.get("sfxmuted")
       });
     }, this
   );
@@ -160,10 +163,16 @@ export default class BootScene extends Phaser.Scene
     b3.on("pointerup", function()
     {
       this.music.stop();
+      this.select.play
+      ({
+        volume:.3,
+        loop: false,
+        mute:this.registry.get("sfxmuted")
+      });
       this.scene.start('Options');
     }, this
   );
-  }
+}
 
   update()
   {
