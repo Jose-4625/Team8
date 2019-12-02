@@ -97,7 +97,7 @@ export default class DefaultScene extends Phaser.Scene {
       }
     }
     this.worldLayer.setCollisionByProperty({ collides: true});
-    aboveLayer.setDepth(20);
+    aboveLayer.setDepth(25);
 
     this.matter.world.convertTilemapLayer(this.worldLayer);
     this.matter.world.convertTilemapLayer(aboveLayer);

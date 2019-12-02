@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf51d48d-fdf0-4971-815e-0b9b242e8bad" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/assets.zip" beforeDir="false" afterPath="$PROJECT_DIR$/assets.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tilemaps/level1.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/tilemaps/level1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tilemaps/level1.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/assets/tilemaps/level1.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tilemaps/level2.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/tilemaps/level2.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tilemaps/level2.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/assets/tilemaps/level2.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tilemaps/level3.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/tilemaps/level3.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tilemaps/level3.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/assets/tilemaps/level3.tmx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tilemaps/level4.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/tilemaps/level4.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tilemaps/level4.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/assets/tilemaps/level4.tmx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,13 +24,18 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/scenes/loadObjects.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="121" column="6" selection-start-line="121" selection-start-column="6" selection-end-line="121" selection-end-column="6" />
+            <state relative-caret-position="-2891">
+              <caret line="8" column="10" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>this.player</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -59,7 +73,7 @@
       </set>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="width" value="937" />
     <option name="height" value="1088" />
@@ -146,10 +160,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1464000" />
+    <option name="totallyTimeSpent" value="2565000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="0" width="749" height="870" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.24982505" />
@@ -159,7 +174,7 @@
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Python Console" />
       <window_info active="true" anchor="bottom" id="Terminal" sideWeight="0.49782923" visible="true" weight="0.34592146" />
-      <window_info anchor="bottom" id="Event Log" sideWeight="0.50217074" side_tool="true" visible="true" weight="0.34592146" />
+      <window_info anchor="bottom" id="Event Log" sideWeight="0.50217074" side_tool="true" weight="0.34592146" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -215,15 +230,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="removed NPC random velocity" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/scenes/DefaultScene.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1440">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/scenes/ObjGen.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-400" />
@@ -236,10 +242,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/scenes/loadAssets.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1296" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scenes/DefaultScene.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="119" column="39" selection-start-line="119" selection-start-column="28" selection-end-line="119" selection-end-column="39" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/scenes/loadObjects.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="121" column="6" selection-start-line="121" selection-start-column="6" selection-end-line="121" selection-end-column="6" />
+        <state relative-caret-position="-2891">
+          <caret line="8" column="10" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="10" />
         </state>
       </provider>
     </entry>

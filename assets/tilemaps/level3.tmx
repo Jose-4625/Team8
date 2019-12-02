@@ -561,16 +561,16 @@
   <object id="425" name="exitPoint" x="1152" y="1024">
    <point/>
   </object>
-  <object id="426" name="exitPoint" x="159" y="1051">
+  <object id="426" name="exitPoint" x="256" y="1248">
    <point/>
   </object>
-  <object id="427" name="exitPoint" x="416" y="1052">
+  <object id="427" name="exitPoint" x="384" y="1248">
    <point/>
   </object>
-  <object id="428" name="exitPoint" x="736" y="1053">
+  <object id="428" name="exitPoint" x="736" y="1248">
    <point/>
   </object>
-  <object id="429" name="exitPoint" x="960" y="1051">
+  <object id="429" name="exitPoint" x="896" y="832">
    <point/>
   </object>
   <object id="430" name="enemyPoint" x="768" y="1147">

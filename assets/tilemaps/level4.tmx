@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="146">
+ <editorsettings>
+  <export target="level4.json" format="json"/>
+ </editorsettings>
  <tileset firstgid="1" name="newTileset" tilewidth="32" tileheight="32" tilecount="400" columns="20">
   <image source="newTileset.png" width="640" height="640"/>
   <tile id="0">
@@ -548,13 +551,13 @@
   <object id="115" name="exitPoint" x="1376" y="1248">
    <point/>
   </object>
-  <object id="116" name="exitPoint" x="256" y="1309.33">
+  <object id="116" name="exitPoint" x="544" y="1248">
    <point/>
   </object>
-  <object id="117" name="exitPoint" x="1249.33" y="1245.33">
+  <object id="117" name="exitPoint" x="960" y="1312">
    <point/>
   </object>
-  <object id="118" name="exitPoint" x="545.333" y="1373.33">
+  <object id="118" name="exitPoint" x="832" y="1440">
    <point/>
   </object>
   <object id="119" name="spillPoint" x="670.667" y="930.667">
@@ -566,7 +569,7 @@
   <object id="121" name="spillPoint" x="958.667" y="1150.67">
    <point/>
   </object>
-  <object id="122" name="enemyPoint" x="833.333" y="1020">
+  <object id="122" name="enemyPoint" x="896" y="1024">
    <point/>
   </object>
   <object id="123" name="enemyPoint" x="1030.67" y="798.667">
