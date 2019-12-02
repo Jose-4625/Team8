@@ -119,8 +119,8 @@ function loadObjects(level,map,that){
     element.setFriction(100);
     element.setDepth(1);
     element.setFixedRotation();
-    element.setVelocityX(Phaser.Math.Between(-1.5, 1.5));
-    element.setVelocityY(Phaser.Math.Between(-0.1, 0.1));
+    //element.setVelocityX(Phaser.Math.Between(-0.1, 0.1));
+    //element.setVelocityY(Phaser.Math.Between(-0.1, 0.1));
 
 
   });
