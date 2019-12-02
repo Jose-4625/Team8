@@ -103,7 +103,19 @@ export default class BootScene extends Phaser.Scene {
         "",
         "Sound effects",
         "",
-        ""
+        "Splash by Michel Baradari",
+        "https://opengameart.org/content/water-splashes",
+        "",
+        "Menu Selection Click by NenadSimic",
+        "https://opengameart.org/content/menu-selection-click",
+        "",
+        "Kindlich Text by Daniel Eden",
+        "unton.es",
+        "",
+        "Door Sound effect by Carlos Canizales",
+        "",
+        "Additional sounds by Zapsplat",
+        "https://www.zapsplat.com"
     ];
 
     var graphics = this.make.graphics();
@@ -119,7 +131,7 @@ export default class BootScene extends Phaser.Scene {
 
     var tween = this.tweens.add({
     targets: text,
-    y:-1100,
+    y:-1500,
     //ease: 'Linear',       // 'Cubic', 'Elastic', 'Bounce', 'Back'
     delay:2000,
     duration: 50000,
@@ -129,8 +141,10 @@ export default class BootScene extends Phaser.Scene {
     //Display text
     var text1 = 'Congratulations!'
     var text2 = "You've escaped!"
+    var text3 = "Press Space to Skip"
     this.spellOutText(275, 0, 300, text1, 30, 250, '#000000', 'Neucha');
     this.spellOutText(275,40, 300, text2,30,250,'#000000','Neucha');
+    this.spellOutText(10,550, 300, text3,20,500,'#ffffff','Neucha');
 
   }
 

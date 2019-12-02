@@ -52,17 +52,23 @@ export default class BootScene extends Phaser.Scene {
         "",
         "",
         "",
-        "Add Flavor text here"
+        "The young, innocent spud lived a great, starch filled life with its family out in the wild.",
+        "That was until one day, it found itself inexplicably inside a restaurant.",
+        "Not wanting to become a delicious cut of fries (I wouldn't be a hesi-tator to become fries honestly), nor leaving you as a spec-tater, the potato asks for your guidance in helping it escape its purgatory in the kitchen.",
+        "Will you achieve the impossible and escape this obnoxiously chaotic restaurant and its atrocious design created to turn you into a hot potato?",
+        "Will you instead be turned into a delicious, salty side order of french fries that will satisfy yet another patron of the establishment, as was the fate of Darth Tator?",
+        "The potato's fate rests in your hands, and maybe even a tad bit on how well you can maintain your composure through this absurd kitchen.",
+        "Good luck, and may the starch guide you!"
     ];
 
     var graphics = this.make.graphics();
 
     // graphics.fillRect(topleftx,toplefty,width,height)
-    graphics.fillRect(300, 100, 200, 200);
+    graphics.fillRect(300, 50, 200, 150);
 
     var mask = new Phaser.Display.Masks.GeometryMask(this, graphics);
 
-    var text = this.add.text(300, 100, content, { fontFamily: 'Candal', color: '#000000', wordWrap: { width: 200 } }).setOrigin(0);
+    var text = this.add.text(300, 20, content, { fontFamily: 'Candal', color: '#000000', wordWrap: { width: 200 } }).setOrigin(0);
 
     text.setMask(mask);
 
@@ -70,8 +76,8 @@ export default class BootScene extends Phaser.Scene {
     targets: text,
     y:-1100,
     //ease: 'Linear',       // 'Cubic', 'Elastic', 'Bounce', 'Back'
-    delay:2000,
-    duration: 50000,
+    delay:1000,
+    duration: 85000,
     ease: 'Linear'
     });
 
