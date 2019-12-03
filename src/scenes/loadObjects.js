@@ -38,12 +38,12 @@ function loadObjects(level,map,that){
     //Initialize with starting velocity
     element.setVelocityX(Phaser.Math.Between(-1.5, 1.5));
     element.setVelocityY(Phaser.Math.Between(-1.5, 1.5));
-    var ran = Math.random() < 0.5 ? false : true;
+    /*var ran = Math.random() < 0.5 ? false : true;
     if (ran){
       element.setScale(0.5)
     }else{
 
-    }
+    }*/
   });
 
   that.crateGroup = ObjectGenerator(map, 'cratePoint','crate',3,that);
