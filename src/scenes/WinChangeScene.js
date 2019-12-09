@@ -1,10 +1,13 @@
 export { addSceneEventListeners };
 
-function addSceneEventListeners(that, scene){
-  that.input.keyboard.on(
+function addSceneEventListeners(that, scene)
+{
+  that.input.keyboard.on
+  (
     "keydown_SPACE",
-      function() {
-        that.music.stop();
+      function()
+      {
+        that.video.stop();
         that.scene.stop(scene);
         that.scene.start('Boot');
       }

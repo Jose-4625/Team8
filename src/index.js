@@ -9,7 +9,7 @@ import WinScene from './scenes/WinScene.js';
 import Config from './config/config.js';
 import Tutorial from './scenes/tutorial.js'
 import Options from './scenes/OptionsScene.js'
-import Intro from './scenes/Intro.js'
+import Introduction from './scenes/Introduction.js'
 
 class Game extends Phaser.Game {
   constructor () {
@@ -20,12 +20,12 @@ class Game extends Phaser.Game {
     this.scene.add('level3', Level3);
     this.scene.add('level4', Level4);
     this.scene.add('GameOverScene', GameOverScene);
-    this.scene.add('WinScene',WinScene);
+    this.scene.add('WinScene', WinScene);
     this.scene.add('tutorial', Tutorial);
     this.scene.add('Options', Options);
-    this.scene.add('Intro',Intro);
+    this.scene.add('Introduction', Introduction);
 
-    this.scene.start('Intro');
+    this.scene.start('Introduction');
   }
 }
 
