@@ -54,11 +54,13 @@ export default class OptionsScene extends Phaser.Scene
 
     //Display text
     var text1 = 'Enter: Return to game\n' +
-                'M to mute Music (Exit for change to take effect)';
-    var text2 = 'ESC: Main menu\n' +
-                'S to mute Sound';
+                'ESC: Main menu\n'
+    var text2 = 'M: Mute music\n' +
+                'S: Mute SFX';
+    var text3 = '(Exit options menu for new changes to take effect)';
     this.spellOutText(100, 285, 290, text1, 30, 20, '#000000', 'Neucha');
     this.spellOutText(450, 285, 200, text2, 30, 20, '#000000', 'Neucha');
+    this.spellOutText(100, 375, 500, text3, 30, 20, '#000000', 'Neucha');
   }
 
   //Gradually spells text out
