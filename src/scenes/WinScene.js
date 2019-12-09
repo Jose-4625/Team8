@@ -8,7 +8,7 @@ export default class BootScene extends Phaser.Scene {
   preload(){
     // Preload assets
     this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
-    this.load.audio('victory','./assets/sounds/Victory.wav')
+    this.load.audio('windown','./assets/sounds/Wind down.wav')
     //Declare variables for center of the scene
     this.centerX = this.cameras.main.width/2;
     this.centerY=this.cameras.main.height/2;
@@ -22,7 +22,7 @@ export default class BootScene extends Phaser.Scene {
     ChangeScene.addSceneEventListeners(this,'level1')
 
     //Add music
-    this.music=this.sound.add('victory')
+    this.music=this.sound.add('windown')
     this.music.play({
       volume:.3,
       loop:false
