@@ -35,6 +35,6 @@ export default class BootScene extends Phaser.Scene
 
     //Display text
     var text = 'Press Space Bar to Skip';
-    this.text = this.add.text(250, 550, text, { fontSize: '24px' });
+    this.text = this.add.text(250, 550, text, { fontFamily:'Nuecha', fontSize: '24px' });
   }
 }
