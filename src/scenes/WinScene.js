@@ -85,11 +85,11 @@ export default class BootScene extends Phaser.Scene {
     var graphics = this.make.graphics();
 
     // graphics.fillRect(topleftx,toplefty,width,height)
-    graphics.fillRect(300, 100, 200, 200);
+    graphics.fillRect(229, 100, 342, 200);
 
     var mask = new Phaser.Display.Masks.GeometryMask(this, graphics);
 
-    var text = this.add.text(330, 110, content, { fontFamily: 'Candal', color: '#000000', wordWrap: { width: 2000 } }).setOrigin(0);
+    var text = this.add.text(229, 100, content, { fontFamily: 'Candal', color: '#000000', wordWrap: { width: 2000 }, align: 'center' }).setOrigin(0);
 
     text.setMask(mask);
 
