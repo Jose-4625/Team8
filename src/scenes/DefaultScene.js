@@ -23,7 +23,9 @@ export default class DefaultScene extends Phaser.Scene {
   }
 
 
-  create(mapKey,danger,time = 30) {
+  create(mapKey,danger,time = 30)
+  {
+    this.cameras.main.setZoom(1.5);
     this.danger = danger;
     this.chase = true;
     //Add change scene event listeners
