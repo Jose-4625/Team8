@@ -42,17 +42,17 @@ function enemyMasterCheck(that){
     })
     if (enemy.body.velocity.x < 0 && Math.abs(enemy.body.velocity.x) > Math.abs(enemy.body.velocity.y)){
       //enemy.anims.play('cook_walk_right')
-      enemy.anims.play('angry_chase')
+      enemy.anims.play('angry_chase', true)
       enemy.flipX = false;
     } else if(enemy.body.velocity.x > 0 && Math.abs(enemy.body.velocity.x) > Math.abs(enemy.body.velocity.y)){
       //enemy.anims.play('cook_walk_right')
-      enemy.anims.play('angry_chase')
+      enemy.anims.play('angry_chase', true)
       enemy.flipX = true;
     }
     else if (enemy.body.velocity.y < 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
-      enemy.anims.play('angry_away')
+      enemy.anims.play('angry_away', true)
     } else if(enemy.body.velocity.y > 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
-      enemy.anims.play('angry_idle')
+      enemy.anims.play('angry_idle', true)
     }
   }
   function setEnemyFrame(enemy){
@@ -62,17 +62,17 @@ function enemyMasterCheck(that){
    //console.log("cook",enemy.body.velocity.x,enemy.body.velocity.y)
     if (enemy.body.velocity.x < 0 && Math.abs(enemy.body.velocity.x) > Math.abs(enemy.body.velocity.y)){
       //enemy.anims.play('cook_walk_right')
-      enemy.anims.play('cook_Cont_right')
+      enemy.anims.play('cook_Cont_right', true)
       enemy.flipX = false;
     } else if(enemy.body.velocity.x > 0 && Math.abs(enemy.body.velocity.x) > Math.abs(enemy.body.velocity.y)){
       //enemy.anims.play('cook_walk_right')
-      enemy.anims.play('cook_Cont_right')
+      enemy.anims.play('cook_Cont_right', true)
       enemy.flipX = true;
     }
     else if (enemy.body.velocity.y < 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
-      enemy.anims.play('cook_walk_up')
+      enemy.anims.play('cook_walk_up', true)
     } else if(enemy.body.velocity.y > 0 && Math.abs(enemy.body.velocity.x) < Math.abs(enemy.body.velocity.y)){
-      enemy.anims.play('cook_idle')
+      enemy.anims.play('cook_idle', true)
     }
     //console.log(enemy.anims)
 
@@ -229,7 +229,7 @@ function worldMasterCheck(that){
           let dist = Phaser.Math.Distance.Between(that.player.x, that.player.y, win[i].x, win[i].y )
           if (dist <= distance){
             ////('detected')
-            win[i].anims.play('door_open')
+            win[i].anims.play('door_open', true)
             //doorfx
             that.doorfx.play({
               volume:.7,
