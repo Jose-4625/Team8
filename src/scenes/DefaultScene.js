@@ -25,7 +25,6 @@ export default class DefaultScene extends Phaser.Scene {
 
   create(mapKey,danger,time = 30)
   {
-    this.cameras.main.setZoom(1.5);
     this.danger = danger;
     this.chase = true;
     //Add change scene event listeners
@@ -67,7 +66,7 @@ export default class DefaultScene extends Phaser.Scene {
     //create game timer
     if (danger){
       this.initialTime = time
-      this.text = this.add.text(16, 16, 'Countdown: ' + formatTime(this.initialTime),{
+      this.text = this.add.text(132, 128, 'Countdown: ' + formatTime(this.initialTime),{
         font: "24px monospace",
         fill: "#ffffff",
         padding: { x: 20, y: 10 },
@@ -122,6 +121,7 @@ export default class DefaultScene extends Phaser.Scene {
     this.camera.startFollow(this.player);
     // Constrain the camera so that it isn't allowed to move outside the width/height of tilemap
     this.camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.camera.setZoom(1.5);
     AllCollision(this.danger,this);
 
 
