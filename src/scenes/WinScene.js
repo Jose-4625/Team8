@@ -30,7 +30,7 @@ export default class BootScene extends Phaser.Scene {
     //Create the scenes
     WebFont.load({
       google:{
-        families: ['Candal', 'Modak', 'Anton']
+        families: ['Candal', 'Modak', 'Anton', 'Neucha']
       }
     });
 
@@ -89,7 +89,7 @@ export default class BootScene extends Phaser.Scene {
 
     var mask = new Phaser.Display.Masks.GeometryMask(this, graphics);
 
-    var text = this.add.text(229, 100, content, { fontFamily: 'Candal', color: '#000000', wordWrap: { width: 2000 }, align: 'center' }).setOrigin(0);
+    var text = this.add.text(229, 100, content, { fontFamily: 'Neucha', color: '#000000', wordWrap: { width: 2000 }, align: 'center' }).setOrigin(0);
 
     text.setMask(mask);
 
@@ -104,9 +104,9 @@ export default class BootScene extends Phaser.Scene {
 
     //Display text
     var text1 = 'You escaped the kitchen!'
-    //var text3 = "Press Space to Skip"
-    this.spellOutText(275, 50, 300, text1, 30, 50, '#000000', 'Neucha');
-    //this.spellOutText(10,550, 300, text3,20,500,'#ffffff','Neucha');
+    var text2 = "Press Space Bar to Skip"
+    this.spellOutText(220, 30, 300, text1, 45, 50, '#000000', 'Neucha');
+    this.spellOutText(20, 550, 300, text2, 35, 50,'#ffffff','Neucha');
 
   }
 

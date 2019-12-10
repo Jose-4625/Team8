@@ -7,7 +7,7 @@ function addSceneEventListeners(that, scene)
     "keydown_SPACE",
       function()
       {
-        if (that.scene == "Introduction.js")
+        if (scene == "Introduction")
         {
           that.video.stop();
         }
