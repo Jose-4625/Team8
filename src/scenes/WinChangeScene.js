@@ -7,7 +7,14 @@ function addSceneEventListeners(that, scene)
     "keydown_SPACE",
       function()
       {
-        that.video.stop();
+        if (that.scene == "Introduction.js")
+        {
+          that.video.stop();
+        }
+        else
+        {
+            that.music.stop();
+        }
         that.scene.stop(scene);
         that.scene.start('Boot');
       }

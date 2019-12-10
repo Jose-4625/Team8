@@ -35,7 +35,7 @@ export default class BootScene extends Phaser.Scene {
     });
 
     //Add background
-    this.add.sprite(400, 280, 'winScreen').setScale(0.3);
+    this.add.sprite(400, 290, 'winScreen').setScale(0.3);
     //Add text
     var content = [
         "",
@@ -48,60 +48,26 @@ export default class BootScene extends Phaser.Scene {
         "",
         "",
         "",
+        "",
         "Fried or Flight",
         "",
-        "An Appeeling Tots Production",
+        "Team Toadprac",
         "",
         "Producer",
-        " Dr. Paul Toprac",
+        "Dr. Paul Toprac",
+        "",
         "Associate Producer",
-        " Jason Harron",
+        "Jason Harron",
         "",
-        "Lead Designer",
-        "Jose Torres",
-        "",
-        "Designers",
+        "Artist",
         "Angelia Wu",
+        "",
+        "Programmer",
+        "Jose-Angel Torres",
+        "",
+        "Sound Designer",
         "Carlos Canizales",
         "",
-        "Level Designer",
-        "Jose Torres",
-        "",
-        "Programming",
-        "",
-        "Lead Programmer",
-        "Jose Torres",
-        "",
-        "Graphics Programming",
-        "Angelia Wu",
-        "",
-        "Music/Sound Programming",
-        "Carlos Canizales",
-        "",
-        "Graphics",
-        "",
-        "Art Director",
-        "Angelia Wu",
-        "",
-        "Lead Artist",
-        "Angelia Wu",
-        "",
-        "Graphics/Artwork",
-        "Angelia Wu",
-        "",
-        "Additional Graphics/Artwork",
-        "Jose Torres",
-        "",
-        "Animation",
-        "Angelia Wu",
-        "Jose Torres",
-        "",
-        "Music and Sound",
-        "",
-        "Composer",
-        "Carlos Canizales",
-        "",
-        "Sound effects",
         "",
         "Splash by Michel Baradari",
         "https://opengameart.org/content/water-splashes",
@@ -111,8 +77,6 @@ export default class BootScene extends Phaser.Scene {
         "",
         "Kindlich Text by Daniel Eden",
         "unton.es",
-        "",
-        "Door Sound effect by Carlos Canizales",
         "",
         "Additional sounds by Zapsplat",
         "https://www.zapsplat.com"
@@ -125,7 +89,7 @@ export default class BootScene extends Phaser.Scene {
 
     var mask = new Phaser.Display.Masks.GeometryMask(this, graphics);
 
-    var text = this.add.text(300, 100, content, { fontFamily: 'Candal', color: '#000000', wordWrap: { width: 200 } }).setOrigin(0);
+    var text = this.add.text(330, 110, content, { fontFamily: 'Candal', color: '#000000', wordWrap: { width: 2000 } }).setOrigin(0);
 
     text.setMask(mask);
 
@@ -139,12 +103,10 @@ export default class BootScene extends Phaser.Scene {
     });
 
     //Display text
-    var text1 = 'Congratulations!'
-    var text2 = "You've escaped!"
-    var text3 = "Press Space to Skip"
-    this.spellOutText(275, 0, 300, text1, 30, 250, '#000000', 'Neucha');
-    this.spellOutText(275,40, 300, text2,30,250,'#000000','Neucha');
-    this.spellOutText(10,550, 300, text3,20,500,'#ffffff','Neucha');
+    var text1 = 'You escaped the kitchen!'
+    //var text3 = "Press Space to Skip"
+    this.spellOutText(275, 50, 300, text1, 30, 50, '#000000', 'Neucha');
+    //this.spellOutText(10,550, 300, text3,20,500,'#ffffff','Neucha');
 
   }
 
